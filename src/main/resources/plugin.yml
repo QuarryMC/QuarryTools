@@ -1,0 +1,5 @@
+name: QuarryTools
+version: '1.0.0'
+main: codes.kooper.quarryTools.QuarryTools
+api-version: '1.21'
+depends: [KoopKore, QuarryMines, packetevents, QuarryMoons, QuarryEconomy, QuarrySkills]
