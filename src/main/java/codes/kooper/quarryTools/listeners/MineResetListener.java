@@ -48,14 +48,14 @@ public class MineResetListener implements Listener {
 
     @EventHandler
     public void onLevel(LevelingEvent event) {
+        Optional<Quarry> quarry = QuarryMines.getInstance().getApi().getQuarry(event.getUser().getQuarry());
+        if (quarry.isEmpty()) return;
         QuarryMine quarryMine = QuarryMoons.getInstance().getMineManager().getBestMine(event.getUser());
-        Pattern pattern = QuarryMoons.getInstance().getMineManager().getBlockifyPattern(quarryMine);
+        Pattern pattern = QuarryMoons.getInstance().getMineManager().getBlockifyPattern(quarry.get(), quarryMine);
         Stage stage = Blockify.getInstance().getStageManager().getStage(event.getUser().getQuarry().toString());
         View view = stage.getView("mine");
         if (view.getPattern().equals(pattern)) return;
         QuarryTools.getInstance().getMineResetManager().getMineResetCache().remove(event.getUser().getQuarry());
-        Optional<Quarry> quarry = QuarryMines.getInstance().getApi().getQuarry(event.getUser().getQuarry());
-        if (quarry.isEmpty()) return;
         Player player = Bukkit.getPlayer(event.getUser().getId());
         if (player == null) return;
         player.playSound(player.getLocation(), Sound.UI_TOAST_CHALLENGE_COMPLETE, 5, 1.5f);

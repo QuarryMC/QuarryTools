@@ -2,6 +2,8 @@ package codes.kooper.quarryTools.listeners;
 
 import codes.kooper.koopKore.utils.CacheEntry;
 import codes.kooper.quarryEconomy.utils.BackpackUtils;
+import codes.kooper.quarryPets.QuarryPets;
+import codes.kooper.quarryPets.database.models.Pet;
 import codes.kooper.quarryTools.events.QuarryMineEvent;
 import codes.kooper.quarryTools.items.PickaxeItems;
 import net.kyori.adventure.title.TitlePart;
@@ -52,10 +54,13 @@ public class BackpackListener implements Listener {
                 long megaFortuneLevel = event.getUser().getSkillLevel("mega_fortune");
                 megaFortune = (megaFortuneLevel / 3.0) + 1;
             }
+            double petBoost = 1.0;
+            for (Pet pet : QuarryPets.getInstance().getPetManager().getSelectedPets(player)) {
+                petBoost += pet.getFortuneBoost();
+            }
             double fortuneBoost = PickaxeItems.getFortuneBoost(player.getInventory().getItemInMainHand()) + 1;
             int fortune = PickaxeItems.getFortune(player.getInventory().getItemInMainHand());
-            final double finalFortune = fortuneBoost * fortune * megaFortune;
-            System.out.println(player.getName() + " " + finalFortune);
+            final double finalFortune = fortuneBoost * fortune * megaFortune * petBoost;
             fortuneCache.put(player.getUniqueId(), new CacheEntry<>(finalFortune, System.currentTimeMillis()));
         }
 

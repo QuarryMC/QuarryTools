@@ -11,7 +11,7 @@ public class ColorUtils {
         NAMED_COLORS.put("black", new Color(0, 0, 0));
         NAMED_COLORS.put("red", new Color(255, 0, 0));
         NAMED_COLORS.put("green", new Color(0, 255, 0));
-        NAMED_COLORS.put("blue", new Color(0, 0, 255));
+        NAMED_COLORS.put("dark_blue", new Color(0, 0, 255));
         NAMED_COLORS.put("yellow", new Color(255, 255, 0));
         NAMED_COLORS.put("cyan", new Color(0, 255, 255));
         NAMED_COLORS.put("magenta", new Color(255, 0, 255));

@@ -2,7 +2,6 @@ package codes.kooper.quarryTools.enums;
 
 import lombok.Getter;
 import net.kyori.adventure.text.Component;
-import org.bukkit.Material;
 
 import static codes.kooper.koopKore.KoopKore.textUtils;
 
@@ -13,7 +12,8 @@ public enum RARITIES {
     RARE("<#4d65b4>"),
     EPIC("<#905ea9>"),
     LEGENDARY("<#f79617>"),
-    MYTHIC("<#e83b3b>");
+    MYTHIC("<#e83b3b>"),
+    COSMIC("<#3C4D85>");
 
     private final String color;
 
@@ -35,28 +35,8 @@ public enum RARITIES {
             case EPIC -> this.getColor() + "<bold>EPIC</bold>";
             case LEGENDARY -> this.getColor() + "<bold><obfuscated>O</obfuscated> " + this.getColor() + "<bold>LEGENDARY</bold> <obfuscated><bold>O</bold></obfuscated>";
             case MYTHIC -> this.getColor() + "<bold><obfuscated>O</obfuscated> " + this.getColor() + "<bold>MYTHIC</bold> <obfuscated><bold>O</bold></obfuscated>";
-        };
-    }
+            case COSMIC -> this.getColor() + "<bold><obfuscated>O</obfuscated> " + this.getColor() + "<bold>COSMIC</bold> <obfuscated><bold>O</bold></obfuscated>";
 
-    public Material getPickaxeType() {
-        return switch (this) {
-            case COMMON -> Material.WOODEN_PICKAXE;
-            case UNCOMMON -> Material.STONE_PICKAXE;
-            case RARE -> Material.IRON_PICKAXE;
-            case EPIC -> Material.GOLDEN_PICKAXE;
-            case LEGENDARY -> Material.DIAMOND_PICKAXE;
-            case MYTHIC -> Material.NETHERITE_PICKAXE;
-        };
-    }
-
-    public Material getSwordType() {
-        return switch (this) {
-            case COMMON -> Material.WOODEN_SWORD;
-            case UNCOMMON -> Material.STONE_SWORD;
-            case RARE -> Material.IRON_SWORD;
-            case EPIC -> Material.GOLDEN_SWORD;
-            case LEGENDARY -> Material.DIAMOND_SWORD;
-            case MYTHIC -> Material.NETHERITE_SWORD;
         };
     }
 }

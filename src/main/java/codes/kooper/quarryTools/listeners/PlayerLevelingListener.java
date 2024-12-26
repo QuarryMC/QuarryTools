@@ -20,6 +20,10 @@ public class PlayerLevelingListener implements Listener {
             default -> 5;
         };
         QuarryEconomy.getInstance().getLevelingUtils().addPlayerXP(event.getUser(), xp);
+
+        if (event.getUser().isAutoPrestige() && event.getUser().getMined() % 30 == 0) {
+            QuarryEconomy.getInstance().getLevelingUtils().prestige(event.getUser());
+        }
     }
 
 }

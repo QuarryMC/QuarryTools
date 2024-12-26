@@ -5,16 +5,15 @@ import codes.kooper.quarryTools.QuarryTools;
 import codes.kooper.quarryTools.enums.ARMOR_TYPES;
 import codes.kooper.quarryTools.utils.ColorUtils;
 import codes.kooper.shaded.nbtapi.NBT;
+import lombok.Getter;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.*;
 
-import static codes.kooper.koopKore.KoopKore.textUtils;
-
+@Getter
 public class ArmorItems {
     private final Map<String, ArmorSet> armorSets;
     private final Map<UUID, ArmorSet> fullSetCache;
@@ -45,10 +44,7 @@ public class ArmorItems {
                 setBonus = new SetBonus(
                         setBonusConfig.getInt("extra_pickaxe_xp", 0),
                         setBonusConfig.getInt("double_rebirth_chance", 0),
-                        setBonusConfig.getBoolean("reduced_rebirth_costs", false),
-                        setBonusConfig.getBoolean("reduced_prestige_costs", false),
-                        setBonusConfig.getDouble("sell_bonus", 0.0),
-                        setBonusConfig.getString("increased_damage", "")
+                        setBonusConfig.getDouble("sell_bonus", 0.0)
                 );
             }
 
@@ -69,9 +65,6 @@ public class ArmorItems {
                         setName,
                         pieceConfig.getString("name", setName + " " + armorType.getTitleCaseName()),
                         pieceConfig.getString("material", "LEATHER_CHESTPLATE"),
-                        pieceConfig.getInt("protection", 0),
-                        pieceConfig.getInt("thorns", 0),
-                        pieceConfig.getInt("health_bonus", 0),
                         pieceConfig.getString("skull", null),
                         color,
                         setBonus
@@ -128,17 +121,10 @@ public class ArmorItems {
         return new HashSet<>(armorSets.values());
     }
 
-    private ItemStack getArmorItem(String key, String name, String material, int protection, int thorns, int healthBonus, String skull, String color, SetBonus setBonus) {
+    private ItemStack getArmorItem(String key, String name, String material, String skull, String color, SetBonus setBonus) {
         ItemBuilder itemBuilder = new ItemBuilder(Material.valueOf(material.toUpperCase()));
         itemBuilder.setName(name);
-        itemBuilder.setLore(getLore(protection, thorns, healthBonus, color, setBonus));
-
-        if (protection > 0) {
-            itemBuilder.addEnchant(Enchantment.PROTECTION, protection, true);
-        }
-        if (thorns > 0) {
-            itemBuilder.addEnchant(Enchantment.THORNS, thorns, true);
-        }
+        itemBuilder.setLore(getLore(color, setBonus));
 
         itemBuilder.setUnbreakable(true);
         itemBuilder.hideFlags(true);
@@ -153,7 +139,6 @@ public class ArmorItems {
 
         ItemStack item = itemBuilder.build();
         NBT.modify(item, (nbt) -> {
-            nbt.setInteger("health", healthBonus);
             nbt.setString("armor", key);
         });
         return item;
@@ -165,12 +150,6 @@ public class ArmorItems {
         });
     }
 
-    public static int getHealthBonus(ItemStack item) {
-        return NBT.get(item, (nbt) -> {
-            return nbt.getInteger("health");
-        });
-    }
-
     public ArmorSet getArmorSet(ItemStack item) {
         String name = NBT.get(item, (nbt) -> {
             return nbt.getString("armor");
@@ -178,13 +157,8 @@ public class ArmorItems {
         return armorSets.get(name);
     }
 
-    public static List<String> getLore(int protection, int thorns, int healthBonus, String color, SetBonus setBonus) {
+    public static List<String> getLore(String color, SetBonus setBonus) {
         List<String> lore = new ArrayList<>();
-
-        // Armor Stats (Base Stats)
-        if (protection > 0) lore.add(String.format("<dark_gray>✦ %s<bold>Protection:</bold> <white>%d", color, protection));
-        if (thorns > 0) lore.add(String.format("<dark_gray>✦ %s<bold>Thorns:</bold> <white>%d", color, thorns));
-        if (healthBonus > 0) lore.add(String.format("<dark_gray>✦ %s<bold>Health Bonus:</bold> <red>+❤%d HP", color, healthBonus));
 
         // Divider to separate base stats from the set bonuses
         lore.add("");
@@ -198,12 +172,7 @@ public class ArmorItems {
         if (setBonus != null) {
             if (setBonus.extraPickaxeXp() > 0) lore.add(String.format("<#B59410>➜ <gold>+%d%% Extra Pickaxe XP</gold>", setBonus.extraPickaxeXp()));
             if (setBonus.doubleRebirthChance() > 0) lore.add(String.format("<#B59410>➜ <gold>%d%% Chance for Double Rebirth</gold>", setBonus.doubleRebirthChance()));
-            if (setBonus.reducedRebirthCosts()) lore.add("<dark_green>➜ <green>Reduced Rebirth Costs</green>");
-            if (setBonus.reducedPrestigeCosts()) lore.add("<dark_green>➜ <green>Reduced Prestige Costs</green>");
             if (setBonus.sellBonus() > 0) lore.add(String.format("<#B59410>➜ <gold>+%.1fx Sell Multiplier</gold>", setBonus.sellBonus()));
-            if (setBonus.increasedDamage() != null && !setBonus.increasedDamage().isEmpty()) {
-                lore.add(String.format("<#8B0000>➜ <red>Increased Damage to %s Boss</red>", textUtils.capitalize(setBonus.increasedDamage())));
-            }
         }
 
         // Divider to end the lore
@@ -220,5 +189,5 @@ public class ArmorItems {
         }
     }
 
-    public record SetBonus(int extraPickaxeXp, int doubleRebirthChance, boolean reducedRebirthCosts, boolean reducedPrestigeCosts, double sellBonus, String increasedDamage) {}
+    public record SetBonus(int extraPickaxeXp, int doubleRebirthChance, double sellBonus) {}
 }

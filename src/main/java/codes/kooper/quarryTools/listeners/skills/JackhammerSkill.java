@@ -17,6 +17,7 @@ import org.bukkit.event.Listener;
 
 import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Collectors;
 
 public class JackhammerSkill implements Listener {
 
@@ -37,20 +38,36 @@ public class JackhammerSkill implements Listener {
         loc2.setZ(loc2.getZ() + 3);
 
         Set<BlockifyPosition> positions = BlockUtils.getBlocksBetween(loc1, loc2);
+        if (positions.isEmpty()) return;
+
+        positions = positions.stream()
+                .filter(position -> {
+                    BlockData blockData = event.getView().getBlock(position);
+                    if (blockData == null) return false;
+
+                    Material material = blockData.getMaterial();
+                    if (event.getQuarry().getSpawnedBoss() != null && material == event.getQuarry().getSpawnedBoss().getBoss().bossBlock())
+                        return false;
+                    return material != Material.AIR &&
+                            !material.name().contains("GLAZED") &&
+                            material != Material.NETHERRACK &&
+                            material != Material.ANCIENT_DEBRIS &&
+                            material != Material.REDSTONE_BLOCK;
+                })
+                .collect(Collectors.toSet());
+
+        if (positions.isEmpty()) return;
 
         for (BlockifyPosition position : positions) {
             BlockData blockData = event.getView().getBlock(position);
-            if (blockData == null) continue;
-            Material material = blockData.getMaterial();
-            if (material == Material.AIR || material.name().contains("GLAZED") || material == Material.ANCIENT_DEBRIS || material == Material.REDSTONE_BLOCK) continue;
             player.spawnParticle(Particle.BLOCK, position.toLocation(player.getWorld()), 10, 0.3, 0.3, 0.3, blockData);
             event.getView().setBlock(position, Material.AIR.createBlockData());
             event.addBlocks(1);
         }
 
         event.getStage().refreshBlocksToAudience(positions);
-        if (user.hasDisabledSkillNotification("jackhammer")) return;
-        player.playSound(player.getLocation(), Sound.BLOCK_PISTON_EXTEND, 1, 1);
+        if (!user.hasDisabledSkillNotification("jackhammer")) {
+            player.playSound(player.getLocation(), Sound.BLOCK_PISTON_EXTEND, 1, 1);
+        }
     }
-
 }

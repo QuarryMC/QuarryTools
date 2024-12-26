@@ -5,12 +5,15 @@ import codes.kooper.quarryTools.QuarryTools;
 import codes.kooper.quarryTools.enums.RARITIES;
 import codes.kooper.quarryTools.enums.TOOL_TYPES;
 import codes.kooper.shaded.nbtapi.NBT;
+import dev.lone.itemsadder.api.CustomStack;
 import net.kyori.adventure.text.Component;
+import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.*;
 
@@ -22,6 +25,7 @@ public class PickaxeItems {
 
     public PickaxeItems() {
         pickaxes = new HashMap<>();
+        int pickaxeIndex = 1;
         for (RARITIES rarity : RARITIES.values()) {
             pickaxes.put(rarity, new HashMap<>());
             ConfigurationSection pickaxeConfig = QuarryTools.getInstance().getConfig().getConfigurationSection("pickaxes." + rarity.name().toLowerCase());
@@ -29,11 +33,24 @@ public class PickaxeItems {
                 QuarryTools.getInstance().getLogger().severe("[Pickaxes] Could not load pickaxes in QuarryTools from config.yml!");
                 return;
             }
-            for (String pickName : pickaxeConfig.getKeys(false)) {
-                int fortune = pickaxeConfig.getInt(pickName);
-                ItemStack item = getPickaxeItem(rarity, pickName, fortune);
-                pickaxes.get(rarity).put(pickName, new Pickaxe(item, rarity, pickName, fortune));
-                QuarryTools.getInstance().getItemManager().addItem(pickName + "_pickaxe", item);
+            if (rarity == RARITIES.COSMIC) {
+                for (String pickName : pickaxeConfig.getKeys(false)) {
+                    ConfigurationSection section = pickaxeConfig.getConfigurationSection(pickName);
+                    if (section == null) continue;
+                    int fortune = section.getInt("fortune");
+                    int model = section.getInt("model");
+                    ItemStack item = getPickaxeItem(model, rarity, pickName, fortune);
+                    pickaxes.get(rarity).put(pickName, new Pickaxe(item, rarity, pickName, fortune));
+                    QuarryTools.getInstance().getItemManager().addItem(pickName + "_pickaxe", item);
+                }
+            } else {
+                for (String pickName : pickaxeConfig.getKeys(false)) {
+                    int fortune = pickaxeConfig.getInt(pickName);
+                    ItemStack item = getPickaxeItem(pickaxeIndex, rarity, pickName, fortune);
+                    pickaxes.get(rarity).put(pickName, new Pickaxe(item, rarity, pickName, fortune));
+                    QuarryTools.getInstance().getItemManager().addItem(pickName + "_pickaxe", item);
+                    pickaxeIndex++;
+                }
             }
         }
     }
@@ -46,9 +63,24 @@ public class PickaxeItems {
         return new HashSet<>(pickaxes.get(rarity).values());
     }
 
-    private ItemStack getPickaxeItem(RARITIES rarity, String name, int fortune) {
+    private ItemStack getPickaxeItem(int id, RARITIES rarity, String name, int fortune) {
         TOOL_TYPES pickaxe = TOOL_TYPES.PICKAXE;
-        ItemStack item = new ItemBuilder(rarity.getPickaxeType())
+        ItemStack itemStack;
+        if (rarity != RARITIES.COSMIC) {
+            CustomStack stack = CustomStack.getInstance("pickaxe_fantasy" + id);
+            if (stack != null) {
+                itemStack = stack.getItemStack();
+            } else {
+                QuarryTools.getInstance().getLogger().severe("Could not load pickaxe model for: " + pickaxe);
+                return null;
+            }
+        } else {
+            itemStack = new ItemStack(Material.NETHERITE_PICKAXE);
+            ItemMeta itemMeta = itemStack.getItemMeta();
+            itemMeta.setCustomModelData(id);
+            itemStack.setItemMeta(itemMeta);
+        }
+        ItemStack item = new ItemBuilder(itemStack)
                 .setName(rarity.getToolName(pickaxe, name))
                 .setLore(pickaxe.getLore(fortune, rarity))
                 .addEnchant(Enchantment.EFFICIENCY, 500, true)
@@ -173,7 +205,7 @@ public class PickaxeItems {
         List<Component> newLore = List.of(
                 Component.empty(),
                 textUtils.colorize(rarity.getColor() + "<bold>|</bold> <color:#1ebc73>Fortune " + numberUtils.commaFormat(pickaxe.fortune) + "</color>"),
-                textUtils.colorize(rarity.getColor() + "<bold>|</bold> <color:#9babb2>Level " + level + "</color> " + rarity.getColor() + "(" + progressBar + ")"),
+                textUtils.colorize(rarity.getColor() + "<bold>|</bold> <color:#9babb2>Level " + level + "</color> " + rarity.getColor() + "(" + progressBar + rarity.getColor() + ")"),
                 Component.empty(),
                 textUtils.colorize(rarity.getColor() + "<bold>|</bold> <color:#92a984>Fortune boost</color> <color:#1ebc73>+" + fortuneBoost + "%</color>"),
                 Component.empty(),

@@ -25,7 +25,6 @@ public class PickaxeLevelingListener implements Listener {
         Player player = event.getPlayer();
         double armorMulti;
         if (QuarryTools.getInstance().getArmorItems().inFullSetCache(player.getUniqueId())) {
-            QuarryTools.getInstance().getLogger().info("Set: " + QuarryTools.getInstance().getArmorItems().getFullSet(player.getUniqueId()).setName());
             armorMulti = switch (QuarryTools.getInstance().getArmorItems().getFullSet(player.getUniqueId()).setName()) {
                 case "phantom" -> 2.0;
                 case "iron_golem" -> 1.7;

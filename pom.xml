@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>codes.kooper</groupId>
-    <artifactId>QuarryTools</artifactId>
+    <artifactId>quarrytools</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
@@ -60,17 +60,8 @@
             <url>https://oss.sonatype.org/content/groups/public/</url>
         </repository>
         <repository>
-            <id>codemc-releases</id>
-            <url>https://repo.codemc.io/repository/maven-releases/</url>
-        </repository>
-        <repository>
-            <id>codemc-snapshots</id>
-            <url>https://repo.codemc.io/repository/maven-snapshots/</url>
-        </repository>
-        <repository>
-            <id>evoke-snapshots</id>
-            <name>EvokeGames Maven</name>
-            <url>https://maven.evokegames.gg/snapshots</url>
+            <id>jitpack-repo</id>
+            <url>https://jitpack.io</url>
         </repository>
     </repositories>
 
@@ -84,31 +75,25 @@
         <dependency>
             <groupId>codes.kooper</groupId>
             <artifactId>KoopKore</artifactId>
-            <version>1.2.5</version>
+            <version>1.3.2</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>codes.kooper</groupId>
             <artifactId>quarrymines</artifactId>
-            <version>1.0.3</version>
+            <version>1.0.6</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.oresmash</groupId>
             <artifactId>Blockify</artifactId>
-            <version>1.0.2</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.github.retrooper</groupId>
-            <artifactId>packetevents-spigot</artifactId>
-            <version>2.7.0</version>
+            <version>1.0.5</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>codes.kooper</groupId>
             <artifactId>quarrymoons</artifactId>
-            <version>1.0.2</version>
+            <version>1.0.4</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -124,9 +109,16 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>me.tofaa.entitylib</groupId>
-            <artifactId>spigot</artifactId>
-            <version>2.4.11-SNAPSHOT</version>
+            <groupId>codes.kooper</groupId>
+            <artifactId>quarrypets</artifactId>
+            <version>1.0.2</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.LoneDev6</groupId>
+            <artifactId>api-itemsadder</artifactId>
+            <version>3.6.1</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 
