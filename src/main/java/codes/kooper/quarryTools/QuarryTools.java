@@ -78,6 +78,7 @@ public final class QuarryTools extends JavaPlugin {
         // Commands
         AutoMineListener autoMineListener = new AutoMineListener();
         getServer().getPluginManager().registerEvents(autoMineListener, this);
+
         this.liteCommands = LiteBukkitFactory.builder("quarrytools")
                 .commands(
                         new ItemCommand(),

@@ -83,7 +83,8 @@ public class AutoMineListener implements Listener {
 
     private void startRewardTask() {
         taskId = Bukkit.getScheduler().runTaskTimer(QuarryTools.getInstance(), () -> {
-            for (Player player : playersInArea) {
+            Set<Player> playersSnapshot = new HashSet<>(playersInArea);
+            for (Player player : playersSnapshot) {
                 Optional<User> userOptional = KoopKore.getInstance().getUserAPI().getUser(player.getUniqueId());
                 if (userOptional.isPresent()) {
                     User user = userOptional.get();
