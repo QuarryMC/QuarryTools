@@ -37,7 +37,7 @@ public class AutoMineCommand {
         autoMineListener.setBlockRange(minBlocks, maxBlocks);
         autoMineListener.setInterval(intervalSeconds);
 
-        player.sendMessage("§aAutoMine settings updated for you:");
+        player.sendMessage("§aAutoMine settings updated:");
         player.sendMessage("§aBlock range: " + minBlocks + " to " + maxBlocks);
         player.sendMessage("§aInterval: " + intervalSeconds + " seconds");
     }
