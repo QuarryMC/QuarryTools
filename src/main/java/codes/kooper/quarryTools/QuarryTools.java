@@ -2,6 +2,8 @@ package codes.kooper.quarryTools;
 
 import codes.kooper.quarryTools.commands.GiveArmorSetCommand;
 import codes.kooper.quarryTools.commands.GiveQuarryBombCommand;
+import codes.kooper.quarryTools.commands.AutoMineCommand;
+import codes.kooper.quarryTools.listeners.AutoMineListener;
 import codes.kooper.quarryTools.commands.ItemCommand;
 import codes.kooper.quarryTools.commands.arguments.ArmorSetArgument;
 import codes.kooper.quarryTools.items.ArmorItems;
@@ -74,8 +76,15 @@ public final class QuarryTools extends JavaPlugin {
         armorItems = new ArmorItems();
 
         // Commands
+        AutoMineListener autoMineListener = new AutoMineListener();
+        getServer().getPluginManager().registerEvents(autoMineListener, this);
         this.liteCommands = LiteBukkitFactory.builder("quarrytools")
-                .commands(new ItemCommand(), new GiveArmorSetCommand(), new GiveQuarryBombCommand())
+                .commands(
+                        new ItemCommand(),
+                        new GiveArmorSetCommand(),
+                        new GiveQuarryBombCommand(),
+                        new AutoMineCommand(autoMineListener) // Pass AutoMineListener here
+                )
                 .argument(ArmorItems.ArmorSet.class, new ArmorSetArgument())
                 .argumentSuggestion(String.class, SuggestionResult.of(itemManager.getItems().keySet()))
                 .message(LiteBukkitMessages.INVALID_USAGE, textUtils.error("There's an invalid usage with the /quarrytools command!"))
