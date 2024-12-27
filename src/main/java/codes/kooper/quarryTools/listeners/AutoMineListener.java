@@ -5,6 +5,10 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.util.Vector;
+
+import java.util.HashSet;
+import java.util.Set;
+
 import static codes.kooper.koopKore.KoopKore.textUtils;
 
 public class AutoMineListener implements Listener {
@@ -12,12 +16,23 @@ public class AutoMineListener implements Listener {
     private final Vector corner1 = new Vector(-102, 62, -4);
     private final Vector corner2 = new Vector(-93, 72, 5);
 
+    private final Set<Player> playersInArea = new HashSet<>();
+
     @EventHandler
     public void onPlayerMove(PlayerMoveEvent event) {
         Player player = event.getPlayer();
         Vector playerPos = player.getLocation().toVector();
+
         if (isInArea(playerPos)) {
-            player.sendMessage(textUtils.colorize("<green>You have entered the AutoMine area!"));
+            if (!playersInArea.contains(player)) {
+                playersInArea.add(player);
+                player.sendMessage(textUtils.colorize("<green>You have entered the AutoMine area!"));
+            }
+        } else {
+            if (playersInArea.contains(player)) {
+                playersInArea.remove(player);
+                player.sendMessage(textUtils.colorize("<red>You have left the AutoMine area!"));
+            }
         }
     }
 
@@ -29,8 +44,8 @@ public class AutoMineListener implements Listener {
         double minZ = Math.min(corner1.getZ(), corner2.getZ());
         double maxZ = Math.max(corner1.getZ(), corner2.getZ());
 
-        return position.getX() > minX && position.getX() < maxX &&
-                position.getY() > minY && position.getY() < maxY &&
-                position.getZ() > minZ && position.getZ() < maxZ;
+        return position.getX() >= minX && position.getX() <= maxX &&
+                position.getY() >= minY && position.getY() <= maxY &&
+                position.getZ() >= minZ && position.getZ() <= maxZ;
     }
 }
