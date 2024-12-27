@@ -31,7 +31,7 @@ public class AutoMineListener implements Listener {
     private int taskId = -1;
 
     public AutoMineListener() {
-        startRewardTask();
+        // Do not call startRewardTask() here to avoid duplicate task scheduling
     }
 
     @EventHandler
