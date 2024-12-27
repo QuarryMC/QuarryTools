@@ -48,6 +48,9 @@ public final class QuarryTools extends JavaPlugin {
     public void onEnable() {
         saveDefaultConfig();
 
+        //AutoMine
+        AutoMineListener autoMineListener = new AutoMineListener();
+
         // Threads
         miningThreads = Executors.newFixedThreadPool(8);
 
@@ -92,18 +95,16 @@ public final class QuarryTools extends JavaPlugin {
         armorItems = new ArmorItems();
 
         // Commands
-        AutoMineListener autoMineListener = new AutoMineListener();
-        getServer().getPluginManager().registerEvents(autoMineListener, this);
         this.liteCommands = LiteBukkitFactory.builder("quarrytools")
                 .commands(
                         new ItemCommand(),
                         new GiveArmorSetCommand(),
                         new GiveQuarryBombCommand(),
-                        new AutoMineCommand(autoMineListener) // Pass the same instance
+                        new AutoMineCommand(autoMineListener) // Ensure the same AutoMineListener instance is passed
                 )
-                .argument(ArmorItems.ArmorSet.class, new ArmorSetArgument())
-                .argumentSuggestion(String.class, SuggestionResult.of(itemManager.getItems().keySet()))
-                .message(LiteBukkitMessages.INVALID_USAGE, textUtils.error("There's an invalid usage with the /quarrytools command!"))
+                .argument(ArmorItems.ArmorSet.class, new ArmorSetArgument()) // Argument for ArmorSet
+                .argumentSuggestion(String.class, SuggestionResult.of(itemManager.getItems().keySet())) // Suggestions for item names
+                .message(LiteBukkitMessages.INVALID_USAGE, textUtils.error("<red>Invalid usage of the /quarrytools command!")) // Custom error message
                 .build();
     }
 
