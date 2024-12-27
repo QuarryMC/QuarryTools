@@ -45,5 +45,7 @@ public class PickaxeStorage extends BaseEntity {
     }
 
     @BsonIgnore
-    public
+    public Pickaxe getPickaxe(String name) {
+        return pickaxes.get(name);
+    }
 }

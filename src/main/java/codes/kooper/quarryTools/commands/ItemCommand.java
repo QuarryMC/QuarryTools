@@ -31,7 +31,7 @@ public class ItemCommand {
             PickaxeStorage pickaxeStorage = optionalPickaxeStorage.get();
             String newName = name.replace("_pickaxe", "");
             PickaxeItems.Pickaxe pickaxe = QuarryTools.getInstance().getPickaxeItems().getPickaxe(newName);
-            pickaxeStorage.getPickaxes().add(new Pickaxe(pickaxe));
+            pickaxeStorage.getPickaxes().put(pickaxe.name(), new Pickaxe(pickaxe));
             player.sendMessage(textUtils.success("You have given " + giveTo.getName() + " " + quantity + "x of " + textUtils.capitalize(name) + "."));
             return;
         }
