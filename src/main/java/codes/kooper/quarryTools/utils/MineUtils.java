@@ -37,6 +37,7 @@ public class MineUtils {
                 .filter(view::hasBlock)
                 .filter(pos -> view.getBlock(pos).getMaterial().name().contains("GLAZED"))
                 .collect(Collectors.toSet());
+        if (positions.isEmpty()) return;
         player.playSound(player.getLocation(), Sound.ENTITY_TNT_PRIMED, 5, 1.5f);
 
         // Create and position the TNT block

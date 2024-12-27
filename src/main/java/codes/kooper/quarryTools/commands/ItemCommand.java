@@ -1,9 +1,9 @@
 package codes.kooper.quarryTools.commands;
 
 
-import codes.kooper.koopKore.KoopKore;
-import codes.kooper.koopKore.database.models.User;
 import codes.kooper.quarryTools.QuarryTools;
+import codes.kooper.quarryTools.database.models.Pickaxe;
+import codes.kooper.quarryTools.database.models.PickaxeStorage;
 import codes.kooper.quarryTools.items.PickaxeItems;
 import codes.kooper.shaded.litecommands.annotations.argument.Arg;
 import codes.kooper.shaded.litecommands.annotations.command.Command;
@@ -26,12 +26,12 @@ public class ItemCommand {
         Player giveTo = target.orElse(player);
         Integer quantity = amount.orElse(1);
         if (name.contains("pickaxe")) {
-            Optional<User> optionalUser = KoopKore.getInstance().getUserAPI().getUser(giveTo.getUniqueId());
-            if (optionalUser.isEmpty()) return;
-            User user = optionalUser.get();
+            Optional<PickaxeStorage> optionalPickaxeStorage = QuarryTools.getInstance().getPickStorageCache().get(player.getUniqueId());
+            if (optionalPickaxeStorage.isEmpty()) return;
+            PickaxeStorage pickaxeStorage = optionalPickaxeStorage.get();
             String newName = name.replace("_pickaxe", "");
             PickaxeItems.Pickaxe pickaxe = QuarryTools.getInstance().getPickaxeItems().getPickaxe(newName);
-            user.addPickaxe(pickaxe.name(), pickaxe.itemStack().clone());
+            pickaxeStorage.getPickaxes().add(new Pickaxe(pickaxe));
             player.sendMessage(textUtils.success("You have given " + giveTo.getName() + " " + quantity + "x of " + textUtils.capitalize(name) + "."));
             return;
         }

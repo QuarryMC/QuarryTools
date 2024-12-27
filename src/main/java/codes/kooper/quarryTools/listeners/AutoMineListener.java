@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.util.Vector;
 
 import java.util.HashSet;
@@ -28,6 +29,8 @@ public class AutoMineListener implements Listener {
 
     private final Set<Player> playersInArea = new HashSet<>();
     private final Random random = new Random();
+
+    private BukkitTask task;
 
     public AutoMineListener() {
         startRewardTask();
@@ -75,12 +78,12 @@ public class AutoMineListener implements Listener {
     }
 
     private void restartRewardTask() {
-        Bukkit.getScheduler().cancelTasks(QuarryTools.getInstance());
+        task.cancel();
         startRewardTask();
     }
 
     private void startRewardTask() {
-        Bukkit.getScheduler().runTaskTimer(QuarryTools.getInstance(), () -> {
+        task = Bukkit.getScheduler().runTaskTimer(QuarryTools.getInstance(), () -> {
             for (Player player : playersInArea) {
                 Optional<User> userOptional = KoopKore.getInstance().getUserAPI().getUser(player.getUniqueId());
                 if (userOptional.isPresent()) {

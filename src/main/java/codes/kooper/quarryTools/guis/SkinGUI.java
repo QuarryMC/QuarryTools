@@ -3,6 +3,7 @@ package codes.kooper.quarryTools.guis;
 import codes.kooper.koopKore.KoopKore;
 import codes.kooper.koopKore.database.models.User;
 import codes.kooper.quarryTools.QuarryTools;
+import codes.kooper.quarryTools.database.models.PickaxeStorage;
 import codes.kooper.quarryTools.enums.RARITIES;
 import codes.kooper.quarryTools.items.PickaxeItems;
 import codes.kooper.shaded.gui.builder.item.ItemBuilder;
@@ -25,9 +26,9 @@ import static codes.kooper.koopKore.KoopKore.textUtils;
 public class SkinGUI {
 
     public SkinGUI(Player player, RARITIES rarity) {
-        Optional<User> userOptional = KoopKore.getInstance().getUserAPI().getUser(player.getUniqueId());
-        if (userOptional.isEmpty()) return;
-        User user = userOptional.get();
+        Optional<PickaxeStorage> optionalPickaxeStorage = QuarryTools.getInstance().getPickStorageCache().get(player.getUniqueId());
+        if (optionalPickaxeStorage.isEmpty()) return;
+        PickaxeStorage pickaxeStorage = optionalPickaxeStorage.get();
 
         Gui gui = Gui.gui()
                 .title(Component.text("Pickaxe Skins"))
@@ -41,8 +42,8 @@ public class SkinGUI {
             GuiItem raritySelector = ItemBuilder.from(new codes.kooper.koopKore.item.ItemBuilder(Material.PLAYER_HEAD).setTexture(rarities.getTexture()).build())
                     .name(textUtils.colorize(rarities.getColor() + "<bold>" + textUtils.capitalize(rarities.name()).toUpperCase()))
                     .lore(textUtils.colorize(List.of(
-                        "<gray>Click to view pickaxes",
-                        "<gray>in this rarity."
+                            "<gray>Click to view pickaxes",
+                            "<gray>in this rarity."
                     )))
                     .asGuiItem();
             raritySelector.setAction((action) -> new SkinGUI(player, rarities));
@@ -50,36 +51,36 @@ public class SkinGUI {
             slot++;
         }
 
-        for (PickaxeItems.Pickaxe pickaxe : QuarryTools.getInstance().getPickaxeItems().getPickaxes(rarity).stream().sorted(Comparator.comparingInt(PickaxeItems.Pickaxe::fortune)).collect(Collectors.toCollection(LinkedHashSet::new))) {
-            GuiItem pickaxeItem;
-            if (user.hasPickaxe(pickaxe.name())) {
-                ItemStack pickItem = user.getPickaxes().get(pickaxe.name()).clone();
-                List<Component> lore = pickItem.lore();
-                if (lore == null) continue;
-                lore.add(Component.empty());
-                if (pickaxe.name().equals(user.getSelectedPickaxe())) {
-                    lore.add(textUtils.success("Currently Equipped"));
-                } else {
-                    lore.add(textUtils.success("Click to Equip"));
-                }
-                pickaxeItem = ItemBuilder.from(pickItem).lore(lore).glow(pickaxe.name().equals(user.getSelectedPickaxe())).asGuiItem();
-                pickaxeItem.setAction((action) -> {
-                    if (pickaxe.name().equals(user.getSelectedPickaxe())) return;
-                    user.getPickaxes().put(user.getSelectedPickaxe(), player.getInventory().getItemInMainHand());
-                    user.setSelectedPickaxe(pickaxe.name());
-                    player.getInventory().setItemInMainHand(user.getPickaxes().get(pickaxe.name()).clone());
-                    player.playSound(player.getLocation(), Sound.UI_BUTTON_CLICK, 5, 1.5f);
-                    new SkinGUI(player, rarity);
-                });
-            } else {
-                List<Component> lore = pickaxe.itemStack().clone().lore();
-                if (lore == null) continue;
-                lore.add(Component.empty());
-                lore.add(textUtils.error("Not Unlocked"));
-                pickaxeItem = ItemBuilder.from(pickaxe.itemStack().clone()).lore(lore).asGuiItem();
-            }
-            gui.addItem(pickaxeItem);
-        }
+//        for (PickaxeItems.Pickaxe pickaxe : QuarryTools.getInstance().getPickaxeItems().getPickaxes(rarity).stream().sorted(Comparator.comparingInt(PickaxeItems.Pickaxe::fortune)).collect(Collectors.toCollection(LinkedHashSet::new))) {
+//            GuiItem pickaxeItem;
+//            if (pickaxeStorage.hasPickaxe(pickaxe.name())) {
+//                ItemStack pickItem = pickaxeStorage.g
+//                List<Component> lore = pickItem.lore();
+//                if (lore == null) continue;
+//                lore.add(Component.empty());
+//                if (pickaxe.name().equals(user.getSelectedPickaxe())) {
+//                    lore.add(textUtils.success("Currently Equipped"));
+//                } else {
+//                    lore.add(textUtils.success("Click to Equip"));
+//                }
+//                pickaxeItem = ItemBuilder.from(pickItem).lore(lore).glow(pickaxe.name().equals(user.getSelectedPickaxe())).asGuiItem();
+//                pickaxeItem.setAction((action) -> {
+//                    if (pickaxe.name().equals(user.getSelectedPickaxe())) return;
+//                    user.getPickaxes().put(user.getSelectedPickaxe(), player.getInventory().getItemInMainHand());
+//                    user.setSelectedPickaxe(pickaxe.name());
+//                    player.getInventory().setItemInMainHand(user.getPickaxes().get(pickaxe.name()).clone());
+//                    player.playSound(player.getLocation(), Sound.UI_BUTTON_CLICK, 5, 1.5f);
+//                    new SkinGUI(player, rarity);
+//                });
+//            } else {
+//                List<Component> lore = pickaxe.itemStack().clone().lore();
+//                if (lore == null) continue;
+//                lore.add(Component.empty());
+//                lore.add(textUtils.error("Not Unlocked"));
+//                pickaxeItem = ItemBuilder.from(pickaxe.itemStack().clone()).lore(lore).asGuiItem();
+//            }
+//            gui.addItem(pickaxeItem);
+//        }
 
         gui.setItem(49, new GuiItem(player.getInventory().getItemInMainHand()));
 

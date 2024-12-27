@@ -58,15 +58,15 @@ public class QuarryBombItem {
         });
     }
 
-    public static void quarryBombUse(Player player, ItemStack item) {
+    public static boolean quarryBombUse(Player player, ItemStack item) {
         Optional<User> targetUser = KoopKore.getInstance().getUserAPI().getUser(player.getUniqueId());
-        if (targetUser.isEmpty()) return;
+        if (targetUser.isEmpty()) return false;
 
         Stage stage = Blockify.getInstance().getStageManager().getStage(targetUser.get().getQuarry().toString());
-        if (stage == null) return;
+        if (stage == null) return false;
 
         View view = stage.getView("mine");
-        if (view == null) return;
+        if (view == null) return false;
 
         WrapperEntity wrapper = new WrapperEntity(EntityTypes.ITEM_DISPLAY);
         ItemDisplayMeta itemDisplayMeta = (ItemDisplayMeta) wrapper.getEntityMeta();
@@ -75,7 +75,9 @@ public class QuarryBombItem {
         Vector direction = player.getEyeLocation().getDirection().normalize().multiply(10);
         Location spawnLoc = player.getLocation();
         Location toLocation = spawnLoc.clone().add(direction);
-        Location mineLocation = view.getHighestBlock(toLocation.getBlockX(), toLocation.getBlockZ()).toLocation(player.getWorld());
+        BlockifyPosition highestPos = view.getHighestBlock(toLocation.getBlockX(), toLocation.getBlockZ());
+        if (highestPos == null) return false;
+        Location mineLocation = highestPos.toLocation(player.getWorld());
         wrapper.spawn(SpigotConversionUtil.fromBukkitLocation(spawnLoc));
 
         int tier = getBombTier(item);
@@ -97,5 +99,7 @@ public class QuarryBombItem {
                 }
             }
         }.runTaskTimerAsynchronously(QuarryTools.getInstance(), 0L, 1L);
+
+        return true;
     }
 }

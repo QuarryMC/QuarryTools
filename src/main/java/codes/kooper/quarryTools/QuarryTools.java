@@ -1,8 +1,13 @@
 package codes.kooper.quarryTools;
 
+import codes.kooper.koopKore.database.tasks.DataSyncTask;
 import codes.kooper.quarryTools.commands.GiveArmorSetCommand;
 import codes.kooper.quarryTools.commands.GiveQuarryBombCommand;
 import codes.kooper.quarryTools.commands.AutoMineCommand;
+import codes.kooper.quarryTools.database.cache.PickStorageCache;
+import codes.kooper.quarryTools.database.listeners.PickaxeLoadListener;
+import codes.kooper.quarryTools.database.models.PickaxeStorage;
+import codes.kooper.quarryTools.database.services.PickaxeService;
 import codes.kooper.quarryTools.listeners.AutoMineListener;
 import codes.kooper.quarryTools.commands.ItemCommand;
 import codes.kooper.quarryTools.commands.arguments.ArmorSetArgument;
@@ -20,6 +25,7 @@ import lombok.Getter;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -34,6 +40,9 @@ public final class QuarryTools extends JavaPlugin {
     private MineResetManager mineResetManager;
     private ExecutorService miningThreads;
     private LiteCommands<CommandSender> liteCommands;
+    private PickaxeService pickaxeService;
+    private PickStorageCache pickStorageCache;
+    private DataSyncTask<UUID, PickaxeStorage> pickSyncTask;
 
     @Override
     public void onEnable() {
@@ -67,6 +76,13 @@ public final class QuarryTools extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new RareBlockSkill(), this);
         getServer().getPluginManager().registerEvents(new BossFriendSkill(), this);
 
+        // Pickaxe Storage
+        pickaxeService = new PickaxeService();
+        pickStorageCache = new PickStorageCache();
+        getServer().getPluginManager().registerEvents(new PickaxeLoadListener(), this);
+        pickSyncTask = new DataSyncTask<>(this, pickStorageCache.getAll(), (uuid, pickaxeStorage) -> pickaxeService.savePickStorage(pickaxeStorage), false);
+        pickSyncTask.start(2400);
+
         // Managers
         mineResetManager = new MineResetManager();
 
@@ -83,7 +99,7 @@ public final class QuarryTools extends JavaPlugin {
                         new ItemCommand(),
                         new GiveArmorSetCommand(),
                         new GiveQuarryBombCommand(),
-                        new AutoMineCommand(autoMineListener)
+                        new AutoMineCommand(autoMineListener) // Pass the same instance
                 )
                 .argument(ArmorItems.ArmorSet.class, new ArmorSetArgument())
                 .argumentSuggestion(String.class, SuggestionResult.of(itemManager.getItems().keySet()))
