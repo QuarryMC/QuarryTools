@@ -71,10 +71,8 @@ public class AutoMineListener implements Listener {
     }
 
     public void setInterval(double intervalSeconds) {
-        if (intervalSeconds >= 1) {
-            this.intervalSeconds = intervalSeconds;
-            restartRewardTask();
-        }
+        this.intervalSeconds = intervalSeconds;
+        restartRewardTask();
     }
 
     private void restartRewardTask() {
