@@ -1,5 +1,4 @@
 package codes.kooper.quarryTools.listeners;
-//hi
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -30,8 +29,8 @@ public class AutoMineListener implements Listener {
         double minZ = Math.min(corner1.getZ(), corner2.getZ());
         double maxZ = Math.max(corner1.getZ(), corner2.getZ());
 
-        return position.getX() >= minX && position.getX() <= maxX &&
-                position.getY() >= minY && position.getY() <= maxY &&
-                position.getZ() >= minZ && position.getZ() <= maxZ;
+        return position.getX() > minX && position.getX() < maxX &&
+                position.getY() > minY && position.getY() < maxY &&
+                position.getZ() > minZ && position.getZ() < maxZ;
     }
 }
