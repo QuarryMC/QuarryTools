@@ -18,6 +18,11 @@ import java.util.Set;
 import static codes.kooper.koopKore.KoopKore.textUtils;
 
 public class AutoMineListener implements Listener {
+
+    private double minBlocks = 1;
+    private double maxBlocks = 60;
+    private double intervalSeconds = 60;
+
     private final Vector corner1 = new Vector(-102, 62, -4);
     private final Vector corner2 = new Vector(-93, 72, 5);
 
@@ -59,19 +64,32 @@ public class AutoMineListener implements Listener {
                 position.getZ() >= minZ && position.getZ() <= maxZ;
     }
 
+    public void setBlockRange(double minBlocks, double maxBlocks) {
+        this.minBlocks = minBlocks;
+        this.maxBlocks = maxBlocks;
+    }
+
+    public void setInterval(double intervalSeconds) {
+        this.intervalSeconds = intervalSeconds;
+        restartRewardTask();
+    }
+
+    private void restartRewardTask() {
+        Bukkit.getScheduler().cancelTasks(QuarryTools.getInstance());
+        startRewardTask();
+    }
+
     private void startRewardTask() {
         Bukkit.getScheduler().runTaskTimer(QuarryTools.getInstance(), () -> {
-            if (!playersInArea.isEmpty()) {
-                for (Player player : playersInArea) {
-                    Optional<User> userOptional = KoopKore.getInstance().getUserAPI().getUser(player.getUniqueId());
-                    if (userOptional.isPresent()) {
-                        User user = userOptional.get();
-                        int amount = random.nextInt(60) + 1;
-                        user.addBlocksToBackpack(amount);
-                        player.sendMessage(textUtils.colorize("<yellow>You received " + amount + " blocks in your backpack!"));
-                    }
+            for (Player player : playersInArea) {
+                Optional<User> userOptional = KoopKore.getInstance().getUserAPI().getUser(player.getUniqueId());
+                if (userOptional.isPresent()) {
+                    User user = userOptional.get();
+                    int amount = (int) (minBlocks + random.nextDouble() * (maxBlocks - minBlocks));
+                    user.addBlocksToBackpack(amount);
+                    player.sendMessage(textUtils.colorize("<yellow>You received " + amount + " blocks in your backpack!"));
                 }
             }
-        }, 0L, 1200L);
+        }, 0L, (long) (intervalSeconds * 20));
     }
 }
