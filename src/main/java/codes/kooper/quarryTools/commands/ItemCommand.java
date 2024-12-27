@@ -1,7 +1,10 @@
 package codes.kooper.quarryTools.commands;
 
 
+import codes.kooper.koopKore.KoopKore;
+import codes.kooper.koopKore.database.models.User;
 import codes.kooper.quarryTools.QuarryTools;
+import codes.kooper.quarryTools.items.PickaxeItems;
 import codes.kooper.shaded.litecommands.annotations.argument.Arg;
 import codes.kooper.shaded.litecommands.annotations.command.Command;
 import codes.kooper.shaded.litecommands.annotations.context.Context;
@@ -22,6 +25,16 @@ public class ItemCommand {
     public void executeItem(@Context Player player, @Arg String name, @Arg Optional<Player> target, @Arg Optional<Integer> amount) {
         Player giveTo = target.orElse(player);
         Integer quantity = amount.orElse(1);
+        if (name.contains("pickaxe")) {
+            Optional<User> optionalUser = KoopKore.getInstance().getUserAPI().getUser(giveTo.getUniqueId());
+            if (optionalUser.isEmpty()) return;
+            User user = optionalUser.get();
+            String newName = name.replace("_pickaxe", "");
+            PickaxeItems.Pickaxe pickaxe = QuarryTools.getInstance().getPickaxeItems().getPickaxe(newName);
+            user.addPickaxe(pickaxe.name(), pickaxe.itemStack().clone());
+            player.sendMessage(textUtils.success("You have given " + giveTo.getName() + " " + quantity + "x of " + textUtils.capitalize(name) + "."));
+            return;
+        }
         ItemStack item = QuarryTools.getInstance().getItemManager().getItem(name);
         if (item == null) {
             player.sendMessage(textUtils.error("The specified tool does not exist."));
