@@ -28,6 +28,7 @@ public class AutoMineListener implements Listener {
 
     private final Set<Player> playersInArea = new HashSet<>();
     private final Random random = new Random();
+    private int taskId = -1;
 
     public AutoMineListener() {
         startRewardTask();
@@ -38,16 +39,15 @@ public class AutoMineListener implements Listener {
         Player player = event.getPlayer();
         Vector playerPos = player.getLocation().toVector();
 
-        if (isInArea(playerPos)) {
-            if (!playersInArea.contains(player)) {
-                playersInArea.add(player);
-                player.sendMessage(textUtils.colorize("<green>You have entered the AutoMine area!"));
-            }
-        } else {
-            if (playersInArea.contains(player)) {
-                playersInArea.remove(player);
-                player.sendMessage(textUtils.colorize("<red>You have left the AutoMine area!"));
-            }
+        boolean inArea = isInArea(playerPos);
+        boolean wasInArea = playersInArea.contains(player);
+
+        if (inArea && !wasInArea) {
+            playersInArea.add(player);
+            player.sendMessage(textUtils.colorize("<green>You have entered the AutoMine area!"));
+        } else if (!inArea && wasInArea) {
+            playersInArea.remove(player);
+            player.sendMessage(textUtils.colorize("<red>You have left the AutoMine area!"));
         }
     }
 
@@ -75,12 +75,14 @@ public class AutoMineListener implements Listener {
     }
 
     private void restartRewardTask() {
-        Bukkit.getScheduler().cancelTasks(QuarryTools.getInstance());
+        if (taskId != -1) {
+            Bukkit.getScheduler().cancelTask(taskId);
+        }
         startRewardTask();
     }
 
     private void startRewardTask() {
-        Bukkit.getScheduler().runTaskTimer(QuarryTools.getInstance(), () -> {
+        taskId = Bukkit.getScheduler().runTaskTimer(QuarryTools.getInstance(), () -> {
             for (Player player : playersInArea) {
                 Optional<User> userOptional = KoopKore.getInstance().getUserAPI().getUser(player.getUniqueId());
                 if (userOptional.isPresent()) {
@@ -90,6 +92,6 @@ public class AutoMineListener implements Listener {
                     player.sendMessage(textUtils.colorize("<yellow>You received " + amount + " blocks in your backpack!"));
                 }
             }
-        }, 0L, (long) (intervalSeconds * 20));
+        }, 0L, (long) (intervalSeconds * 20)).getTaskId();
     }
 }

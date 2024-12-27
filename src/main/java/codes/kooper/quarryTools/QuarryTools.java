@@ -83,7 +83,7 @@ public final class QuarryTools extends JavaPlugin {
                         new ItemCommand(),
                         new GiveArmorSetCommand(),
                         new GiveQuarryBombCommand(),
-                        new AutoMineCommand(autoMineListener) // Pass AutoMineListener here
+                        new AutoMineCommand(autoMineListener)
                 )
                 .argument(ArmorItems.ArmorSet.class, new ArmorSetArgument())
                 .argumentSuggestion(String.class, SuggestionResult.of(itemManager.getItems().keySet()))
