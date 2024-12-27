@@ -24,6 +24,10 @@ public class AutoMineListener implements Listener {
     private final Set<Player> playersInArea = new HashSet<>();
     private final Random random = new Random();
 
+    public AutoMineListener() {
+        startRewardTask();
+    }
+
     @EventHandler
     public void onPlayerMove(PlayerMoveEvent event) {
         Player player = event.getPlayer();
@@ -57,14 +61,16 @@ public class AutoMineListener implements Listener {
 
     private void startRewardTask() {
         Bukkit.getScheduler().runTaskTimer(QuarryTools.getInstance(), () -> {
-            for (Player player : playersInArea) {
-                Optional<User> userOptional = KoopKore.getInstance().getUserAPI().getUser(player.getUniqueId());
-                if (userOptional.isEmpty()) continue;
-
-                User user = userOptional.get();
-                int amount = random.nextInt(60) + 1;
-                user.addBlocksToBackpack(amount);
-                player.sendMessage(textUtils.colorize("<yellow>You received " + amount + " blocks in your backpack!"));
+            if (!playersInArea.isEmpty()) {
+                for (Player player : playersInArea) {
+                    Optional<User> userOptional = KoopKore.getInstance().getUserAPI().getUser(player.getUniqueId());
+                    if (userOptional.isPresent()) {
+                        User user = userOptional.get();
+                        int amount = random.nextInt(60) + 1;
+                        user.addBlocksToBackpack(amount);
+                        player.sendMessage(textUtils.colorize("<yellow>You received " + amount + " blocks in your backpack!"));
+                    }
+                }
             }
         }, 0L, 1200L);
     }
