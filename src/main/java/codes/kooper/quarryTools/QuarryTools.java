@@ -100,11 +100,11 @@ public final class QuarryTools extends JavaPlugin {
                         new ItemCommand(),
                         new GiveArmorSetCommand(),
                         new GiveQuarryBombCommand(),
-                        new AutoMineCommand(autoMineListener) // Ensure the same AutoMineListener instance is passed
+                        new AutoMineCommand(autoMineListener)
                 )
-                .argument(ArmorItems.ArmorSet.class, new ArmorSetArgument()) // Argument for ArmorSet
-                .argumentSuggestion(String.class, SuggestionResult.of(itemManager.getItems().keySet())) // Suggestions for item names
-                .message(LiteBukkitMessages.INVALID_USAGE, textUtils.error("<red>Invalid usage of the /quarrytools command!")) // Custom error message
+                .argument(ArmorItems.ArmorSet.class, new ArmorSetArgument())
+                .argumentSuggestion(String.class, SuggestionResult.of(itemManager.getItems().keySet()))
+                .message(LiteBukkitMessages.INVALID_USAGE, textUtils.error("<red>Invalid usage of the /quarrytools command!"))
                 .build();
     }
 
