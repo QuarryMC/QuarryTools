@@ -31,7 +31,7 @@ public class AutoMineListener implements Listener {
     private int taskId = -1;
 
     public AutoMineListener() {
-        // Do not call startRewardTask() here to avoid duplicate task scheduling
+        startRewardTask();
     }
 
     @EventHandler
@@ -70,8 +70,10 @@ public class AutoMineListener implements Listener {
     }
 
     public void setInterval(double intervalSeconds) {
-        this.intervalSeconds = intervalSeconds;
-        restartRewardTask();
+        if (intervalSeconds > 0) {
+            this.intervalSeconds = intervalSeconds;
+            restartRewardTask();
+        }
     }
 
     private void restartRewardTask() {
@@ -82,9 +84,11 @@ public class AutoMineListener implements Listener {
     }
 
     private void startRewardTask() {
+        if (taskId != -1) {
+            Bukkit.getScheduler().cancelTask(taskId);
+        }
         taskId = Bukkit.getScheduler().runTaskTimer(QuarryTools.getInstance(), () -> {
-            Set<Player> playersSnapshot = new HashSet<>(playersInArea);
-            for (Player player : playersSnapshot) {
+            for (Player player : new HashSet<>(playersInArea)) {
                 Optional<User> userOptional = KoopKore.getInstance().getUserAPI().getUser(player.getUniqueId());
                 if (userOptional.isPresent()) {
                     User user = userOptional.get();
