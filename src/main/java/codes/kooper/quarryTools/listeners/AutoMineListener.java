@@ -74,13 +74,17 @@ public class AutoMineListener implements Listener {
         restartRewardTask();
     }
 
+    private int taskId = -1;
+
     private void restartRewardTask() {
-        Bukkit.getScheduler().cancelTasks(QuarryTools.getInstance());
+        if (taskId != -1) {
+            Bukkit.getScheduler().cancelTask(taskId);
+        }
         startRewardTask();
     }
 
     private void startRewardTask() {
-        Bukkit.getScheduler().runTaskTimer(QuarryTools.getInstance(), () -> {
+        taskId = Bukkit.getScheduler().scheduleSyncRepeatingTask(QuarryTools.getInstance(), () -> {
             for (Player player : playersInArea) {
                 Optional<User> userOptional = KoopKore.getInstance().getUserAPI().getUser(player.getUniqueId());
                 if (userOptional.isPresent()) {
@@ -90,6 +94,6 @@ public class AutoMineListener implements Listener {
                     player.sendMessage(textUtils.colorize("<yellow>You received " + amount + " blocks in your backpack!"));
                 }
             }
-        }, 0L, (long) (intervalSeconds * 20));
+        }, 0L, Math.max(20, (long) (intervalSeconds * 20)));
     }
 }
