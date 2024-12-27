@@ -67,7 +67,6 @@ public class AutoMineListener implements Listener {
     public void setBlockRange(double minBlocks, double maxBlocks) {
         this.minBlocks = minBlocks;
         this.maxBlocks = maxBlocks;
-        restartRewardTask();
     }
 
     public void setInterval(double intervalSeconds) {
@@ -83,11 +82,8 @@ public class AutoMineListener implements Listener {
     }
 
     private void startRewardTask() {
-        if (taskId != -1) {
-            Bukkit.getScheduler().cancelTask(taskId);
-        }
         taskId = Bukkit.getScheduler().runTaskTimer(QuarryTools.getInstance(), () -> {
-            for (Player player : new HashSet<>(playersInArea)) {
+            for (Player player : playersInArea) {
                 Optional<User> userOptional = KoopKore.getInstance().getUserAPI().getUser(player.getUniqueId());
                 if (userOptional.isPresent()) {
                     User user = userOptional.get();
