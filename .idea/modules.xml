@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/QuarryTools.iml" filepath="$PROJECT_DIR$/QuarryTools.iml" />
-      <module fileurl="file://$PROJECT_DIR$/quarrytools.iml" filepath="$PROJECT_DIR$/quarrytools.iml" />
     </modules>
   </component>
 </project>

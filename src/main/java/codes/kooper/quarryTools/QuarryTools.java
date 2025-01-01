@@ -1,15 +1,12 @@
 package codes.kooper.quarryTools;
 
 import codes.kooper.koopKore.database.tasks.DataSyncTask;
-import codes.kooper.quarryTools.commands.GiveArmorSetCommand;
-import codes.kooper.quarryTools.commands.GiveQuarryBombCommand;
-import codes.kooper.quarryTools.commands.AutoMineCommand;
+import codes.kooper.quarryTools.commands.*;
 import codes.kooper.quarryTools.database.cache.PickStorageCache;
 import codes.kooper.quarryTools.database.listeners.PickaxeLoadListener;
 import codes.kooper.quarryTools.database.models.PickaxeStorage;
 import codes.kooper.quarryTools.database.services.PickaxeService;
 import codes.kooper.quarryTools.listeners.AutoMineListener;
-import codes.kooper.quarryTools.commands.ItemCommand;
 import codes.kooper.quarryTools.commands.arguments.ArmorSetArgument;
 import codes.kooper.quarryTools.items.ArmorItems;
 import codes.kooper.quarryTools.items.PickaxeItems;
@@ -71,6 +68,7 @@ public final class QuarryTools extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new QuarryBombListener(), this);
         getServer().getPluginManager().registerEvents(new PickaxeListener(), this);
         getServer().getPluginManager().registerEvents(autoMineListener, this);
+        getServer().getPluginManager().registerEvents(new MineRewardListener(), this);
 
         // Skills
         getServer().getPluginManager().registerEvents(new AutoRebirthSkill(), this);
@@ -78,6 +76,7 @@ public final class QuarryTools extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new JackhammerSkill(), this);
         getServer().getPluginManager().registerEvents(new RareBlockSkill(), this);
         getServer().getPluginManager().registerEvents(new BossFriendSkill(), this);
+        getServer().getPluginManager().registerEvents(new LootboxFinderSkill(), this);
 
         // Pickaxe Storage
         pickaxeService = new PickaxeService();
@@ -100,6 +99,7 @@ public final class QuarryTools extends JavaPlugin {
                         new ItemCommand(),
                         new GiveArmorSetCommand(),
                         new GiveQuarryBombCommand(),
+                        new FixPickaxeCommand(),
                         new AutoMineCommand(autoMineListener)
                 )
                 .argument(ArmorItems.ArmorSet.class, new ArmorSetArgument())

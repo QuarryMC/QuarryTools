@@ -21,9 +21,9 @@ import java.util.stream.Collectors;
 
 import static codes.kooper.koopKore.KoopKore.textUtils;
 
-public class SkinGUI {
+public class PickaxeSkinsGUI {
 
-    public SkinGUI(Player player, RARITIES rarity) {
+    public PickaxeSkinsGUI(Player player, RARITIES rarity) {
         Optional<PickaxeStorage> optionalPickaxeStorage = QuarryTools.getInstance().getPickStorageCache().get(player.getUniqueId());
         if (optionalPickaxeStorage.isEmpty()) return;
         PickaxeStorage pickaxeStorage = optionalPickaxeStorage.get();
@@ -44,7 +44,7 @@ public class SkinGUI {
                             "<gray>in this rarity."
                     )))
                     .asGuiItem();
-            raritySelector.setAction((action) -> new SkinGUI(player, rarities));
+            raritySelector.setAction((action) -> new PickaxeSkinsGUI(player, rarities));
             gui.setItem(slot, raritySelector);
             slot++;
         }
@@ -52,7 +52,7 @@ public class SkinGUI {
         for (PickaxeItems.Pickaxe pickaxe : QuarryTools.getInstance().getPickaxeItems().getPickaxes(rarity).stream().sorted(Comparator.comparingInt(PickaxeItems.Pickaxe::fortune)).collect(Collectors.toCollection(LinkedHashSet::new))) {
             GuiItem pickaxeItem;
             if (pickaxeStorage.hasPickaxe(pickaxe.name())) {
-                ItemStack pickItem = pickaxeStorage.getPickaxe(pickaxe.name()).toItem().clone();
+                ItemStack pickItem = pickaxeStorage.getPickaxe(pickaxe.name()).toItem(player).clone();
                 List<Component> lore = pickItem.lore();
                 if (lore == null) continue;
                 lore.add(Component.empty());
@@ -64,11 +64,12 @@ public class SkinGUI {
                 pickaxeItem = ItemBuilder.from(pickItem).lore(lore).glow(pickaxe.name().equals(pickaxeStorage.getSelected().getName())).asGuiItem();
                 pickaxeItem.setAction((action) -> {
                     if (pickaxe.name().equals(pickaxeStorage.getSelected().getName())) return;
+                    pickaxeStorage.updateSelected(player.getInventory().getItemInMainHand());
                     pickaxeStorage.getPickaxes().put(pickaxeStorage.getSelected().getName(), pickaxeStorage.getSelected());
                     pickaxeStorage.setSelected(pickaxeStorage.getPickaxe(pickaxe.name()));
-                    player.getInventory().setItemInMainHand(pickaxeStorage.getSelected().toItem().clone());
+                    player.getInventory().setItemInMainHand(pickaxeStorage.getSelected().toItem(player).clone());
                     player.playSound(player.getLocation(), Sound.UI_BUTTON_CLICK, 5, 1.5f);
-                    new SkinGUI(player, rarity);
+                    new PickaxeSkinsGUI(player, rarity);
                 });
             } else {
                 List<Component> lore = pickaxe.itemStack().clone().lore();

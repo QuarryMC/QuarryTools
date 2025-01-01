@@ -64,6 +64,12 @@ public class MineUtils {
 
             @Override
             public void run() {
+                if (ticks >= 100) {
+                    tntBlock.despawn();
+                    entityMap.values().forEach(WrapperEntity::despawn);
+                    cancel();
+                    return;
+                }
                 if (ticks == 0) {
                     // Initialize block displays
                     for (BlockifyPosition pos : positions) {

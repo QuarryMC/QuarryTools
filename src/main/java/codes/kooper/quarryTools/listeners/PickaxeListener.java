@@ -1,7 +1,7 @@
 package codes.kooper.quarryTools.listeners;
 
 import codes.kooper.quarryTools.QuarryTools;
-import codes.kooper.quarryTools.guis.SkinGUI;
+import codes.kooper.quarryTools.guis.PickaxeSkinsGUI;
 import codes.kooper.quarryTools.items.PickaxeItems;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -18,7 +18,7 @@ public class PickaxeListener implements Listener {
     public void onRightClick(PlayerInteractEvent event) {
         if (!PickaxeItems.isPickaxe(event.getItem()) || (event.getAction() != Action.RIGHT_CLICK_AIR && event.getAction() != Action.RIGHT_CLICK_BLOCK)) return;
         PickaxeItems.Pickaxe pickaxe = QuarryTools.getInstance().getPickaxeItems().getPickaxe(event.getItem());
-        new SkinGUI(event.getPlayer(), pickaxe.rarity());
+        new PickaxeSkinsGUI(event.getPlayer(), pickaxe.rarity());
     }
 
     @EventHandler

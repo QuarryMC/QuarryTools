@@ -43,7 +43,7 @@ public class BossListener implements Listener {
     @EventHandler
     public void onSummary(QuarryMineEvent event) {
         Player player = event.getPlayer();
-        if (event.getUser().getMined() % 1000 != 0) return;
+        if (event.getUser().getMined() % 1000 != 0 || event.getQuarry().getSpawnedBoss() == null) return;
         Quarry quarry = event.getQuarry();
         player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 3, 1.5f);
         String prefix = quarry.getSpawnedBoss().getBoss().color2() + "<bold>" + quarry.getSpawnedBoss().getBoss().name().toUpperCase() + " BOSS: ";

@@ -1,11 +1,13 @@
 package codes.kooper.quarryTools.database.models;
 
 import codes.kooper.koopKore.database.models.BaseEntity;
+import codes.kooper.shaded.nbtapi.NBT;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.bson.codecs.pojo.annotations.BsonIgnore;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.*;
 
@@ -47,5 +49,14 @@ public class PickaxeStorage extends BaseEntity {
     @BsonIgnore
     public Pickaxe getPickaxe(String name) {
         return pickaxes.get(name);
+    }
+
+    @BsonIgnore
+    public void updateSelected(ItemStack tool) {
+        NBT.get(tool, nbt -> {
+            selected.setFortune(nbt.getInteger("fortune"));
+            selected.setLevel(nbt.getInteger("level"));
+            selected.setFortuneBoost(nbt.getDouble("fortune-boost"));
+        });
     }
 }

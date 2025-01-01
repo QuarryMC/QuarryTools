@@ -13,8 +13,14 @@ import lombok.ToString;
 import org.bson.codecs.pojo.annotations.BsonIgnore;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+
+import java.util.List;
+
+import static codes.kooper.koopKore.KoopKore.numberUtils;
+import static codes.kooper.koopKore.KoopKore.textUtils;
 
 @Getter
 @Setter
@@ -35,12 +41,22 @@ public class Pickaxe {
     }
 
     @BsonIgnore
-    public ItemStack toItem() {
+    public ItemStack toItem(Player player) {
         TOOL_TYPES pickaxe = TOOL_TYPES.PICKAXE;
+        int cost = PickaxeItems.getXPCost(level);
         PickaxeItems.Pickaxe pick = QuarryTools.getInstance().getPickaxeItems().getPickaxe(name);
+        String progressBar = textUtils.progressBar(player.getTotalExperience(), cost, 10, "┃", pick.rarity().getColor(), "<color:#b2ba90>");
         ItemStack item = new ItemBuilder(pick.itemStack())
                 .setName(pick.rarity().getToolName(pickaxe, name))
-                .setLore(pickaxe.getLore(fortune, pick.rarity()))
+                .setLore(List.of(
+                    "",
+                    pick.rarity().getColor() + "<bold>|</bold> <color:#1ebc73>Fortune " + numberUtils.commaFormat(fortune) + "</color>",
+                    pick.rarity().getColor() + "<bold>|</bold> <color:#9babb2>Level " + level + "</color> " + pick.rarity().getColor() + "(" + progressBar + pick.rarity().getColor() + ")",
+                    "",
+                    pick.rarity().getColor() + "<bold>|</bold> <color:#92a984>Fortune boost</color> <color:#1ebc73>+" + fortuneBoost + "%</color>",
+                    "",
+                    pick.rarity().getLoreLine()
+                ))
                 .addEnchant(Enchantment.EFFICIENCY, 500, true)
                 .setUnbreakable(true)
                 .hideFlags(true)

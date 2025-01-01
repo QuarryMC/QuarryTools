@@ -10,6 +10,7 @@ import codes.kooper.shaded.litecommands.annotations.command.Command;
 import codes.kooper.shaded.litecommands.annotations.context.Context;
 import codes.kooper.shaded.litecommands.annotations.execute.Execute;
 import codes.kooper.shaded.litecommands.annotations.permission.Permission;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -22,27 +23,26 @@ public class ItemCommand {
 
     @Execute
     @Permission("quarrytools.admin")
-    public void executeItem(@Context Player player, @Arg String name, @Arg Optional<Player> target, @Arg Optional<Integer> amount) {
-        Player giveTo = target.orElse(player);
+    public void executeItem(@Context CommandSender sender, @Arg String name, @Arg Player target, @Arg Optional<Integer> amount) {
         Integer quantity = amount.orElse(1);
         if (name.contains("pickaxe")) {
-            Optional<PickaxeStorage> optionalPickaxeStorage = QuarryTools.getInstance().getPickStorageCache().get(player.getUniqueId());
+            Optional<PickaxeStorage> optionalPickaxeStorage = QuarryTools.getInstance().getPickStorageCache().get(target.getUniqueId());
             if (optionalPickaxeStorage.isEmpty()) return;
             PickaxeStorage pickaxeStorage = optionalPickaxeStorage.get();
             String newName = name.replace("_pickaxe", "");
             PickaxeItems.Pickaxe pickaxe = QuarryTools.getInstance().getPickaxeItems().getPickaxe(newName);
             pickaxeStorage.getPickaxes().put(pickaxe.name(), new Pickaxe(pickaxe));
-            player.sendMessage(textUtils.success("You have given " + giveTo.getName() + " " + quantity + "x of " + textUtils.capitalize(name) + "."));
+            sender.sendMessage(textUtils.success("You have given " + target.getName() + " " + quantity + "x of " + textUtils.capitalize(name) + "."));
             return;
         }
         ItemStack item = QuarryTools.getInstance().getItemManager().getItem(name);
         if (item == null) {
-            player.sendMessage(textUtils.error("The specified tool does not exist."));
+            sender.sendMessage(textUtils.error("The specified tool does not exist."));
             return;
         }
         item.setAmount(quantity);
-        giveTo.getInventory().addItem(item);
-        player.sendMessage(textUtils.success("You have given " + giveTo.getName() + " " + quantity + "x of " + textUtils.capitalize(name) + "."));
+        target.getInventory().addItem(item);
+        sender.sendMessage(textUtils.success("You have given " + target.getName() + " " + quantity + "x of " + textUtils.capitalize(name) + "."));
     }
 
 }
