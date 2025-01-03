@@ -54,7 +54,7 @@ public class CodexGUI {
                         "<gray>(tbd)"
                 ))),
                 new ItemDetails(Material.ENDER_DRAGON_SPAWN_EGG, "Bosses", textUtils.colorize(List.of(
-                        "<black>/bosses",
+                        "<#292828>/bosses",
                         "<dark_purple>(tbd)"
                 ))),
                 new ItemDetails(Material.DIAMOND, "Skills", textUtils.colorize(List.of(
