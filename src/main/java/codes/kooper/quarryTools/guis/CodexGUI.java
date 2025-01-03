@@ -12,13 +12,22 @@ public class CodexGUI {
     public CodexGUI(Player player) {
         Gui gui = Gui.gui()
                 .title(Component.text("Codex"))
-                .rows(7)
                 .disableAllInteractions()
+                .rows(7)
                 .create();
 
-        for (int row = 2; row <= 3; row++) {
-            for (int col = 0; col < 7; col++) {
-                int slot = (row - 1) * 9 + col + 1;
+        gui.getFiller().fill(ItemBuilder.from(Material.GRAY_STAINED_GLASS_PANE)
+                .name(Component.empty())
+                .asGuiItem());
+
+        int startRow = 3;
+        int endRow = 4;
+        int startCol = 3;
+        int endCol = 8;
+
+        for (int row = startRow; row <= endRow; row++) {
+            for (int col = startCol; col <= endCol; col++) {
+                int slot = (row - 1) * 9 + (col - 1);
                 GuiItem sunflowerItem = ItemBuilder.from(Material.SUNFLOWER)
                         .name(Component.text("Beautiful Sunflower"))
                         .lore(
@@ -29,10 +38,6 @@ public class CodexGUI {
                 gui.setItem(slot, sunflowerItem);
             }
         }
-
-        gui.getFiller().fill(ItemBuilder.from(Material.GRAY_STAINED_GLASS_PANE)
-                .name(Component.empty())
-                .asGuiItem());
 
         gui.open(player);
     }
