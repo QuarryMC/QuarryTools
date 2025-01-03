@@ -7,6 +7,7 @@ import codes.kooper.quarryMines.utils.QuarryBlockUtils;
 import codes.kooper.quarrySkills.QuarrySkills;
 import codes.kooper.quarrySkills.managers.SkillManager;
 import codes.kooper.quarrySkills.models.Skill;
+import codes.kooper.quarryTools.QuarryTools;
 import codes.kooper.quarryTools.events.QuarryMineEvent;
 import codes.kooper.quarryTools.utils.MineUtils;
 import io.papermc.paper.math.Position;
@@ -78,7 +79,7 @@ public class JackhammerSkill implements Listener {
         }
 
         event.addBlocks(positions.size() / 10);
-        event.addResetBlocks(count);
+        QuarryTools.getInstance().getMineResetManager().mineBlocks(event.getQuarry(), count);
 
         player.getChromaBlockManager().refreshBlocks(positions);
         if (!user.hasDisabledSkillNotification("jackhammer")) {

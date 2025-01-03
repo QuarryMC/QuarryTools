@@ -40,7 +40,7 @@ public class MineRewardListener implements Listener {
         advancementDisplay.setY(3.5f);
         Advancement rootAdvancement = new Advancement(new NameKey("quarrytools", "blocks"), advancementDisplay);
         String booster = boosters[ThreadLocalRandom.current().nextInt(boosters.length)];
-        double multi = ThreadLocalRandom.current().nextDouble(1.25, 2.01);
+        double multi = ThreadLocalRandom.current().nextDouble(0.25, 1.01);
         Tasks.runSync(() -> {
             rootAdvancement.displayToast(player);
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "boostersadmin give " + player.getName() + " " + booster + "-booster personal " + (multi * 100) + " 5m 1");

@@ -36,7 +36,7 @@ public class BackpackListener implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onBreak(QuarryMineEvent event) {
         Player player = event.getPlayer();
-        if (event.getUser().getBackpackItems() + event.getBlocks() >= event.getUser().getBackpackCapacity()) {
+        if (event.getUser().getBackpackItems() + event.getBlocks().get() >= event.getUser().getBackpackCapacity()) {
             event.getUser().setBackpackItems(event.getUser().getBackpackCapacity());
             if (event.getUser().isAutoSell()) {
                 BackpackUtils.sell(event.getUser());
@@ -64,6 +64,6 @@ public class BackpackListener implements Listener {
             fortuneCache.put(player.getUniqueId(), new CacheEntry<>(finalFortune, System.currentTimeMillis()));
         }
 
-        event.getUser().addBlocksToBackpack((long) (event.getBlocks() * fortuneCache.get(player.getUniqueId()).getValue()));
+        event.getUser().addBlocksToBackpack((long) (event.getBlocks().get() * fortuneCache.get(player.getUniqueId()).getValue()));
     }
 }

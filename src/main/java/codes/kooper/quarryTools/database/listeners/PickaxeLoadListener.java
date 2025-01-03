@@ -7,6 +7,8 @@ import codes.kooper.quarryTools.database.models.PickaxeStorage;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+import org.bukkit.event.player.PlayerCommandSendEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
@@ -24,6 +26,11 @@ public class PickaxeLoadListener implements Listener {
             return;
         }
 
+        updatePickaxeInInventory(player);
+    }
+
+    private void updatePickaxeInInventory(Player player) {
+        UUID uuid = player.getUniqueId();
         Tasks.runAsync(() -> {
             Pickaxe defaultPick = new Pickaxe(QuarryTools.getInstance().getPickaxeItems().getPickaxe("starter"));
             PickaxeStorage pickaxeStorage = QuarryTools.getInstance().getPickaxeService().findById(uuid).orElseGet(() -> new PickaxeStorage(uuid, defaultPick));
@@ -43,9 +50,16 @@ public class PickaxeLoadListener implements Listener {
         UUID uuid = event.getPlayer().getUniqueId();
 
         QuarryTools.getInstance().getPickStorageCache().get(uuid).ifPresent(storage -> {
+            storage.updateSelected(event.getPlayer().getInventory().getItem(0));
             Tasks.runAsync(() -> QuarryTools.getInstance().getPickaxeService().savePickStorage(storage));
             QuarryTools.getInstance().getPickStorageCache().invalidate(uuid);
         });
+    }
+
+    @EventHandler
+    public void onClearCommand(PlayerCommandPreprocessEvent event) {
+        if (!event.getMessage().equalsIgnoreCase("/clear")) return;
+        Tasks.runSyncLater(() -> updatePickaxeInInventory(event.getPlayer()), 1L);
     }
 
 }

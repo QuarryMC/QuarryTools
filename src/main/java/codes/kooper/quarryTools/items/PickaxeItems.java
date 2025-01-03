@@ -135,7 +135,8 @@ public class PickaxeItems {
     }
 
     public static int getXPCost(int level) {
-        return level * 5000;
+        if (level >= 100) return -1;
+        return (int) (1000 * level + Math.pow(level, 2) * 50) * 5;
     }
 
     public static void addPickaxeXP(Player player, Pickaxe pickaxe, double amount) {
@@ -145,6 +146,7 @@ public class PickaxeItems {
             return nbt.getInteger("level");
         });
         int xpCost = getXPCost(level);
+        if (xpCost == -1) return;
         int currentXP = player.getTotalExperience();
         player.giveExp((int) amount);
         int newXP = player.getTotalExperience();
@@ -178,6 +180,7 @@ public class PickaxeItems {
             return nbt.getDouble("fortune-boost");
         });
         int xpCost = getXPCost(level);
+        if (xpCost == -1) return;
         NBT.modify(tool, nbt -> {
             nbt.setInteger("level", level + 1);
             nbt.setDouble("fortune-boost", fortuneBoost + 0.5);
@@ -201,7 +204,12 @@ public class PickaxeItems {
             return nbt.getDouble("fortune-boost");
         });
         int cost = getXPCost(level);
-        String progressBar = textUtils.progressBar(player.getTotalExperience(), cost, 10, "┃", rarity.getColor(), "<color:#b2ba90>");
+        String progressBar;
+        if (cost == -1) {
+            progressBar = "<#FFD700>MAXED";
+        } else {
+            progressBar = textUtils.progressBar(player.getTotalExperience(), cost, 10, "┃", rarity.getColor(), "<color:#b2ba90>");
+        }
         List<Component> newLore = List.of(
                 Component.empty(),
                 textUtils.colorize(rarity.getColor() + "<bold>|</bold> <color:#1ebc73>Fortune " + numberUtils.commaFormat(pickaxe.fortune) + "</color>"),

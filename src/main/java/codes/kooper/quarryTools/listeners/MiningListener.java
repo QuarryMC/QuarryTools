@@ -55,6 +55,7 @@ public class MiningListener implements Listener {
         Quarry quarry = quarryOptional.get();
 
         user.addMined(1);
+        QuarryTools.getInstance().getMineResetManager().mineBlocks(quarry, 1);
 
         QuarryTools.getInstance().getMiningThreads().submit(() -> {
             try {
