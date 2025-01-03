@@ -31,35 +31,35 @@ public class CodexGUI {
 
         List<ItemDetails> items = List.of(
                 new ItemDetails(Material.PURPLE_WOOL, "Prestige", textUtils.colorize(List.of(
-                        "<yellow>/prestige",
+                        "<dark_purple>/prestige",
                         "<light_purple>Prestiging gives you skill tokens,",
                         "<light_purple>As well as unlocks better mines when you get enough"
                 ))),
                 new ItemDetails(Material.GOLD_BLOCK, "Rebirth", textUtils.colorize(List.of(
                         "<yellow>/rebirth",
-                        "<light_purple>Rebirthing gives you a Rebirth Lootbox,",
-                        "<light_purple>Better lucky blocks,",
-                        "<light_purple>As well as access to a Rebirth mine and /rebirthshop"
+                        "<#dcc100>Rebirthing gives you a Rebirth Lootbox,",
+                        "<#dcc100>Better lucky blocks,",
+                        "<#dcc100>As well as access to a Rebirth mine and /rebirthshop"
                 ))),
-                new ItemDetails(Material.REDSTONE_BLOCK, "Auto Commands", textUtils.colorize(List.of(
-                        "<gray>/autosell /autoprestige /automine",
-                        "<red>(tbd)"
+                new ItemDetails(Material.IRON_INGOT, "Auto Sell", textUtils.colorize(List.of(
+                        "<white>/autosell",
+                        "<grey>(tbd)"
                 ))),
-                new ItemDetails(Material.SAND, "Placeholder 4", textUtils.colorize(List.of(
-                        "<gray>This is item 4.",
-                        "<green>Custom description."
+                new ItemDetails(Material.EMERALD, "Auto Prestige", textUtils.colorize(List.of(
+                        "<dark_green>/automine",
+                        "<green>(tbd)"
                 ))),
-                new ItemDetails(Material.GRAVEL, "Placeholder 5", textUtils.colorize(List.of(
-                        "<gray>This is item 5.",
-                        "<green>Custom description."
+                new ItemDetails(Material.COBBLESTONE, "Auto Miner", textUtils.colorize(List.of(
+                        "<dark_gray>/automine",
+                        "<gray>(tbd)"
                 ))),
-                new ItemDetails(Material.OAK_LOG, "Placeholder 6", textUtils.colorize(List.of(
-                        "<gray>This is item 6.",
-                        "<green>Custom description."
+                new ItemDetails(Material.ENDER_DRAGON_SPAWN_EGG, "Bosses", textUtils.colorize(List.of(
+                        "<black>/bosses",
+                        "<dark_purple>(tbd)"
                 ))),
-                new ItemDetails(Material.SPRUCE_LOG, "Placeholder 7", textUtils.colorize(List.of(
-                        "<gray>This is item 7.",
-                        "<green>Custom description."
+                new ItemDetails(Material.DIAMOND, "Skills", textUtils.colorize(List.of(
+                        "<aqua>/skills",
+                        "<dark_blue>(tbd)"
                 ))),
                 new ItemDetails(Material.BIRCH_LOG, "Placeholder 8", textUtils.colorize(List.of(
                         "<gray>This is item 8.",
