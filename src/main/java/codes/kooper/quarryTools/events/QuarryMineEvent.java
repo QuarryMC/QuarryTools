@@ -11,6 +11,8 @@ import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 @Getter
 public class QuarryMineEvent extends Event {
     private static final HandlerList HANDLERS = new HandlerList();
@@ -20,8 +22,7 @@ public class QuarryMineEvent extends Event {
     private final Player player;
     private final BlockData blockData;
     private final PickaxeItems.Pickaxe pickaxe;
-    private int blocks = 1;
-    private int resetBlocks = 1;
+    private final AtomicInteger blocks = new AtomicInteger(1);
 
     public QuarryMineEvent(Quarry quarry, User user, Location location, Player player, BlockData blockData, PickaxeItems.Pickaxe pickaxe) {
         super(true);
@@ -33,12 +34,8 @@ public class QuarryMineEvent extends Event {
         this.pickaxe = pickaxe;
     }
 
-    public void addResetBlocks(int resetBlocks) {
-        this.resetBlocks += resetBlocks;
-    }
-
     public void addBlocks(int blocks) {
-        this.blocks += blocks;
+        this.blocks.getAndAdd(blocks);
     }
 
     @Override

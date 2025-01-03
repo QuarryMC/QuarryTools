@@ -12,7 +12,6 @@ import codes.kooper.quarryMoons.QuarryMoons;
 import codes.kooper.quarryMoons.enums.MOONS;
 import codes.kooper.quarryMoons.events.MoonChangeEvent;
 import codes.kooper.quarryTools.QuarryTools;
-import codes.kooper.quarryTools.events.QuarryMineEvent;
 import eu.endercentral.crazy_advancements.JSONMessage;
 import eu.endercentral.crazy_advancements.NameKey;
 import eu.endercentral.crazy_advancements.advancement.Advancement;
@@ -25,7 +24,6 @@ import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
@@ -34,11 +32,6 @@ import org.bukkit.potion.PotionEffectType;
 import java.util.Optional;
 
 public class MineResetListener implements Listener {
-
-    @EventHandler(priority = EventPriority.HIGHEST)
-    public void onBreak(QuarryMineEvent event) {
-        QuarryTools.getInstance().getMineResetManager().mineBlocks(event.getQuarry(), event.getResetBlocks());
-    }
 
     @EventHandler
     public void onQuarryUnload(QuarryUnloadEvent event) {

@@ -28,6 +28,8 @@ public class PickaxeSkinsGUI {
         if (optionalPickaxeStorage.isEmpty()) return;
         PickaxeStorage pickaxeStorage = optionalPickaxeStorage.get();
 
+        pickaxeStorage.updateSelected(player.getInventory().getItem(0));
+
         Gui gui = Gui.gui()
                 .title(Component.text("Pickaxe Skins"))
                 .disableAllInteractions()
