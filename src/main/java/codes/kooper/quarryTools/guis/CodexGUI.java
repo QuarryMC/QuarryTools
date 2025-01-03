@@ -12,11 +12,13 @@ public class CodexGUI {
     public CodexGUI(Player player) {
         Gui gui = Gui.gui()
                 .title(Component.text("Codex"))
-                .disableAllInteractions()
                 .rows(6)
+                .disableAllInteractions()
                 .create();
 
-        gui.getFiller().fill(ItemBuilder.from(Material.GRAY_STAINED_GLASS_PANE).name(Component.empty()).asGuiItem());
+        gui.getFiller().fill(ItemBuilder.from(Material.GRAY_STAINED_GLASS_PANE)
+                .name(Component.empty())
+                .asGuiItem());
 
         int startRow = 2;
         int endRow = 3;
@@ -32,6 +34,7 @@ public class CodexGUI {
                                 Component.text("Perfect for your codex!")
                         )
                         .asGuiItem();
+
                 gui.setItem((row - 1) * 9 + (col - 1), sunflowerItem);
             }
         }

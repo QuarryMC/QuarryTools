@@ -14,5 +14,7 @@ public class CodexCommand {
     @Execute
     public void openCodex(@Arg Player player) {
         new CodexGUI(player);
+
+        player.sendMessage("The Codex GUI has been opened!");
     }
 }
