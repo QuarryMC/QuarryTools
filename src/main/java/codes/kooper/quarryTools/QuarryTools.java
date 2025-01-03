@@ -74,6 +74,7 @@ public final class QuarryTools extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new RareBlockSkill(), this);
         getServer().getPluginManager().registerEvents(new BossFriendSkill(), this);
         getServer().getPluginManager().registerEvents(new LootboxFinderSkill(), this);
+        getServer().getPluginManager().registerEvents(new BoltSkill(), this);
 
         // Pickaxe Storage
         pickaxeService = new PickaxeService();
