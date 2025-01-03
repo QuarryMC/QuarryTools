@@ -20,7 +20,7 @@ public class CodexGUI {
                 .rows(4)
                 .create();
 
-        gui.getFiller().fill(ItemBuilder.from(Material.GRAY_STAINED_GLASS_PANE)
+        gui.getFiller().fill(ItemBuilder.from(Material.LIGHT_GRAY_STAINED_GLASS_PANE)
                 .name(Component.empty())
                 .asGuiItem());
 
@@ -69,25 +69,25 @@ public class CodexGUI {
                         "<#684b0a>No Command Yet",
                         "<#af882f>(tbd)"
                 ))),
-                new ItemDetails(Material.ACACIA_LOG, "Placeholder 10", textUtils.colorize(List.of(
-                        "<gray>This is item 10.",
-                        "<green>Custom description."
+                new ItemDetails(Material.GRAY_STAINED_GLASS_PANE, "???", textUtils.colorize(List.of(
+                        "<gray>???",
+                        "<green>???"
                 ))),
-                new ItemDetails(Material.DARK_OAK_LOG, "Placeholder 11", textUtils.colorize(List.of(
-                        "<gray>This is item 11.",
-                        "<green>Custom description."
+                new ItemDetails(Material.GRAY_STAINED_GLASS_PANE, "???", textUtils.colorize(List.of(
+                        "<gray>???",
+                        "<green>???"
                 ))),
-                new ItemDetails(Material.CLAY, "Placeholder 12", textUtils.colorize(List.of(
-                        "<gray>This is item 12.",
-                        "<green>Custom description."
+                new ItemDetails(Material.GRAY_STAINED_GLASS_PANE, "???", textUtils.colorize(List.of(
+                        "<gray>???",
+                        "<green>???"
                 ))),
-                new ItemDetails(Material.SNOW_BLOCK, "Placeholder 13", textUtils.colorize(List.of(
-                        "<gray>This is item 13.",
-                        "<green>Custom description."
+                new ItemDetails(Material.GRAY_STAINED_GLASS_PANE, "???", textUtils.colorize(List.of(
+                        "<gray>???",
+                        "<green>???"
                 ))),
-                new ItemDetails(Material.ICE, "Placeholder 14", textUtils.colorize(List.of(
-                        "<gray>This is item 14.",
-                        "<green>Custom description."
+                new ItemDetails(Material.GRAY_STAINED_GLASS_PANE, "???", textUtils.colorize(List.of(
+                        "<gray>???",
+                        "<green>???"
                 )))
         );
 
