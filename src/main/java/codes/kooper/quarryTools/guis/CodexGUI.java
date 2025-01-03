@@ -35,7 +35,10 @@ public class CodexGUI {
                         )
                         .asGuiItem();
 
-                gui.setItem((row - 1) * 9 + (col - 1), sunflowerItem);
+                int slot = (row - 1) * 9 + (col - 1);
+                if (slot < gui.getRows() * 9) {
+                    gui.setItem(slot, sunflowerItem);
+                }
             }
         }
 
