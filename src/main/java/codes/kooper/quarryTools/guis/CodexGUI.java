@@ -12,17 +12,13 @@ public class CodexGUI {
     public CodexGUI(Player player) {
         Gui gui = Gui.gui()
                 .title(Component.text("Codex"))
-                .disableAllInteractions()
                 .rows(7)
+                .disableAllInteractions()
                 .create();
 
-        int startRow = 3;
-        int endRow = 4;
-        int startCol = 2;
-        int endCol = 8;
-
-        for (int row = startRow; row <= endRow; row++) {
-            for (int col = startCol; col <= endCol; col++) {
+        for (int row = 2; row <= 3; row++) {
+            for (int col = 1; col <= 7; col++) {
+                int slot = (row - 1) * 9 + col - 1;
                 GuiItem sunflowerItem = ItemBuilder.from(Material.SUNFLOWER)
                         .name(Component.text("Beautiful Sunflower"))
                         .lore(
@@ -30,8 +26,6 @@ public class CodexGUI {
                                 Component.text("Perfect for your codex!")
                         )
                         .asGuiItem();
-
-                int slot = (row - 1) * 9 + (col - 1);
                 gui.setItem(slot, sunflowerItem);
             }
         }
