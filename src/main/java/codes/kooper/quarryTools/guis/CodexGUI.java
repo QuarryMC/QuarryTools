@@ -32,14 +32,14 @@ public class CodexGUI {
         List<ItemDetails> items = List.of(
                 new ItemDetails(Material.PURPLE_WOOL, "Prestige", textUtils.colorize(List.of(
                         "<yellow>/prestige",
-                        "<purple>Prestiging gives you skill tokens,",
-                        "<purple>As well as unlocks better mines when you get enough"
+                        "<light_purple>Prestiging gives you skill tokens,",
+                        "<light_purple>As well as unlocks better mines when you get enough"
                 ))),
                 new ItemDetails(Material.GOLD_BLOCK, "Rebirth", textUtils.colorize(List.of(
                         "<yellow>/rebirth",
-                        "<purple>Rebirthing gives you a Rebirth Lootbox,",
-                        "<purple>Better lucky blocks,",
-                        "<purple>As well as access to a Rebirth mine and /rebirthshop"
+                        "<light_purple>Rebirthing gives you a Rebirth Lootbox,",
+                        "<light_purple>Better lucky blocks,",
+                        "<light_purple>As well as access to a Rebirth mine and /rebirthshop"
                 ))),
                 new ItemDetails(Material.REDSTONE_BLOCK, "Auto Commands", textUtils.colorize(List.of(
                         "<gray>/autosell /autoprestige /automine",
