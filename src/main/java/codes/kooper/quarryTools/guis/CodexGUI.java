@@ -61,13 +61,13 @@ public class CodexGUI {
                         "<aqua>/skills",
                         "<dark_blue>(tbd)"
                 ))),
-                new ItemDetails(Material.BIRCH_LOG, "Placeholder 8", textUtils.colorize(List.of(
-                        "<gray>This is item 8.",
-                        "<green>Custom description."
+                new ItemDetails(Material.IRON_BARS, "Cells", textUtils.colorize(List.of(
+                        "<white>/cells",
+                        "<#292828>(tbd.)"
                 ))),
-                new ItemDetails(Material.JUNGLE_LOG, "Placeholder 9", textUtils.colorize(List.of(
-                        "<gray>This is item 9.",
-                        "<green>Custom description."
+                new ItemDetails(Material.CHEST, "Crates", textUtils.colorize(List.of(
+                        "<#684b0a>No Command Yet",
+                        "<#af882f>(tbd)"
                 ))),
                 new ItemDetails(Material.ACACIA_LOG, "Placeholder 10", textUtils.colorize(List.of(
                         "<gray>This is item 10.",
