@@ -16,10 +16,6 @@ public class CodexGUI {
                 .rows(7)
                 .create();
 
-        gui.getFiller().fill(ItemBuilder.from(Material.GRAY_STAINED_GLASS_PANE)
-                .name(Component.empty())
-                .asGuiItem());
-
         int startRow = 3;
         int endRow = 4;
         int startCol = 2;
@@ -30,17 +26,19 @@ public class CodexGUI {
                 GuiItem sunflowerItem = ItemBuilder.from(Material.SUNFLOWER)
                         .name(Component.text("Beautiful Sunflower"))
                         .lore(
-                                Component.text("Test1"),
-                                Component.text("Test2")
+                                Component.text("This is a lovely sunflower."),
+                                Component.text("Perfect for your codex!")
                         )
                         .asGuiItem();
 
                 int slot = (row - 1) * 9 + (col - 1);
-                if (slot < gui.getRows() * 9) {
-                    gui.setItem(slot, sunflowerItem);
-                }
+                gui.setItem(slot, sunflowerItem);
             }
         }
+
+        gui.getFiller().fill(ItemBuilder.from(Material.GRAY_STAINED_GLASS_PANE)
+                .name(Component.empty())
+                .asGuiItem());
 
         gui.open(player);
     }
