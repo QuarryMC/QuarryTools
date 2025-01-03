@@ -2,6 +2,7 @@ package codes.kooper.quarryTools.commands;
 
 import codes.kooper.quarryTools.guis.CodexGUI;
 import codes.kooper.shaded.litecommands.annotations.command.Command;
+import codes.kooper.shaded.litecommands.annotations.context.Context;
 import codes.kooper.shaded.litecommands.annotations.execute.Execute;
 import codes.kooper.shaded.litecommands.annotations.permission.Permission;
 import org.bukkit.entity.Player;
@@ -11,7 +12,7 @@ import org.bukkit.entity.Player;
 public class CodexCommand {
 
     @Execute
-    public void openCodex(Player player) {
+    public void openCodex(@Context Player player) {
         new CodexGUI(player);
     }
 }
