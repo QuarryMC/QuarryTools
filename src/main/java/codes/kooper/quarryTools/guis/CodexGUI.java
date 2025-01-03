@@ -29,9 +29,9 @@ public class CodexGUI {
 
         // List of 14 placeholder items
         List<ItemDetails> items = List.of(
-                new ItemDetails(Material.STONE, "Placeholder 1", "This is item 1.", "Custom description."),
-                new ItemDetails(Material.COBBLESTONE, "Placeholder 2", "This is item 2.", "Custom description."),
-                new ItemDetails(Material.DIRT, "Placeholder 3", "This is item 3.", "Custom description."),
+                new ItemDetails(Material.PURPLE_WOOL, "Prestige", "/prestige", "Once you reach Level 50 use /prestige"),
+                new ItemDetails(Material.GOLD_BLOCK, "Rebirth", "/rebirth", "Once you reach Prestige 5000 use /rebirth"),
+                new ItemDetails(Material.REDSTONE_BLOCK, "Auto Commands", "/autosell /autoprestige /automine", "tbd 2nd description(need to know what ranks unlock autosell/autoprestige)"),
                 new ItemDetails(Material.SAND, "Placeholder 4", "This is item 4.", "Custom description."),
                 new ItemDetails(Material.GRAVEL, "Placeholder 5", "This is item 5.", "Custom description."),
                 new ItemDetails(Material.OAK_LOG, "Placeholder 6", "This is item 6.", "Custom description."),
