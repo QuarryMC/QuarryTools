@@ -13,15 +13,15 @@ public class CodexGUI {
         Gui gui = Gui.gui()
                 .title(Component.text("Codex"))
                 .disableAllInteractions()
-                .rows(7)
+                .rows(6)
                 .create();
 
         gui.getFiller().fill(ItemBuilder.from(Material.GRAY_STAINED_GLASS_PANE)
                 .name(Component.empty())
                 .asGuiItem());
 
-        int startRow = 3;
-        int endRow = 4;
+        int startRow = 2;
+        int endRow = 3;
         int startCol = 3;
         int endCol = 8;
 
@@ -34,11 +34,8 @@ public class CodexGUI {
                                 Component.text("Perfect for your codex!")
                         )
                         .asGuiItem();
-
                 int slot = (row - 1) * 9 + (col - 1);
-                if (slot < gui.getRows() * 9) {  // Ensure the slot is valid
-                    gui.setItem(slot, sunflowerItem);
-                }
+                gui.setItem(slot, sunflowerItem);
             }
         }
 
