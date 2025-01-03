@@ -13,15 +13,15 @@ public class CodexGUI {
         Gui gui = Gui.gui()
                 .title(Component.text("Codex"))
                 .disableAllInteractions()
-                .rows(2)
+                .rows(4)
                 .create();
 
         gui.getFiller().fill(ItemBuilder.from(Material.GRAY_STAINED_GLASS_PANE)
                 .name(Component.empty())
                 .asGuiItem());
 
-        int startRow = 1;
-        int endRow = 2;
+        int startRow = 2;
+        int endRow = 3;
         int startCol = 2;
         int endCol = 8;
 
