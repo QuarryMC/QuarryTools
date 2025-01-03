@@ -22,7 +22,7 @@ public class CodexGUI {
 
         int startRow = 3;
         int endRow = 4;
-        int startCol = 3;
+        int startCol = 2;
         int endCol = 8;
 
         for (int row = startRow; row <= endRow; row++) {
@@ -30,8 +30,8 @@ public class CodexGUI {
                 GuiItem sunflowerItem = ItemBuilder.from(Material.SUNFLOWER)
                         .name(Component.text("Beautiful Sunflower"))
                         .lore(
-                                Component.text("This is a lovely sunflower."),
-                                Component.text("Perfect for your codex!")
+                                Component.text("Test1"),
+                                Component.text("Test2")
                         )
                         .asGuiItem();
 
