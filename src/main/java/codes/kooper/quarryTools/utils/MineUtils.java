@@ -12,9 +12,8 @@ import codes.kooper.shaded.packetevents.api.util.SpigotConversionUtil;
 import codes.kooper.shaded.packetevents.protocol.entity.type.EntityTypes;
 import codes.kooper.shaded.packetevents.protocol.world.states.type.StateTypes;
 import codes.kooper.shaded.packetevents.util.Vector3f;
-import com.oresmash.blockify.models.Stage;
-import com.oresmash.blockify.models.View;
-import com.oresmash.blockify.types.BlockifyPosition;
+
+import io.papermc.paper.math.Position;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
@@ -29,13 +28,12 @@ import java.util.stream.Collectors;
 
 public class MineUtils {
 
-    public static void luckyBlockNuker(Player player, BlockifyPosition center, View view, Stage stage, int radius) {
+    public static void luckyBlockNuker(Player player, Location center, int radius) {
         Optional<User> optionalUser = KoopKore.getInstance().getUserAPI().getUser(player.getUniqueId());
         if (optionalUser.isEmpty()) return;
         User user = optionalUser.get();
-        Set<BlockifyPosition> positions = getAllPositionsInRadius(center, radius).stream()
-                .filter(view::hasBlock)
-                .filter(pos -> view.getBlock(pos).getMaterial().name().contains("GLAZED"))
+        Set<Position> positions = getAllPositionsInRadius(center, radius).stream()
+                .filter(pos -> player.getChromaBlockManager().getBlockData(pos) != null && player.getChromaBlockManager().getBlockData(pos).getMaterial().name().contains("GLAZED"))
                 .collect(Collectors.toSet());
         if (positions.isEmpty()) return;
         player.playSound(player.getLocation(), Sound.ENTITY_TNT_PRIMED, 5, 1.5f);
@@ -59,7 +57,7 @@ public class MineUtils {
         // Run asynchronously to send client-side packets
         new BukkitRunnable() {
             int ticks = 0;
-            final Map<BlockifyPosition, WrapperEntity> entityMap = new HashMap<>(positions.size());
+            final Map<Position, WrapperEntity> entityMap = new HashMap<>(positions.size());
             final int startSize = positions.size();
 
             @Override
@@ -72,22 +70,23 @@ public class MineUtils {
                 }
                 if (ticks == 0) {
                     // Initialize block displays
-                    for (BlockifyPosition pos : positions) {
+                    for (Position pos : positions) {
                         WrapperEntity blockDisplay = new WrapperEntity(EntityTypes.BLOCK_DISPLAY);
                         BlockDisplayMeta blockDisplayMeta1 = (BlockDisplayMeta) blockDisplay.getEntityMeta();
-                        BlockData blockData = view.getBlock(pos);
+                        BlockData blockData = player.getChromaBlockManager().getBlockData(pos);
+                        if (blockData == null) continue;
                         blockDisplayMeta1.setBlockId(SpigotConversionUtil.fromBukkitBlockData(blockData).getGlobalId());
                         blockDisplay.addViewerSilently(player.getUniqueId());
                         blockDisplay.spawn(SpigotConversionUtil.fromBukkitLocation(pos.toLocation(player.getWorld())));
                         entityMap.put(pos, blockDisplay);
                     }
-                    view.setBlocks(positions, Material.AIR.createBlockData());
-                    stage.refreshBlocksToAudience(positions);
+                    player.getChromaBlockManager().setBlocks(positions, Material.AIR.createBlockData());
+                    player.getChromaBlockManager().refreshBlocks(positions);
                 } else {
                     // Process positions
-                    final Iterator<BlockifyPosition> iterator = positions.iterator();
+                    final Iterator<Position> iterator = positions.iterator();
                     while (iterator.hasNext()) {
-                        BlockifyPosition pos = iterator.next();
+                        Position pos = iterator.next();
 
                         WrapperEntity wrapper = entityMap.get(pos);
                         Location location = SpigotConversionUtil.toBukkitLocation(player.getWorld(), wrapper.getLocation());
@@ -125,14 +124,14 @@ public class MineUtils {
         }.runTaskTimerAsynchronously(QuarryTools.getInstance(), 0L, 1L);
     }
 
-    public static Set<BlockifyPosition> getAllPositionsInRadius(BlockifyPosition center, int radius) {
-        Set<BlockifyPosition> positions = new HashSet<>();
-        for (int x = center.getX() - radius; x <= center.getX() + radius; x++) {
-            for (int y = center.getY() - radius; y <= center.getY() + radius; y++) {
-                for (int z = center.getZ() - radius; z <= center.getZ() + radius; z++) {
-                    double distanceSquared = Math.pow(x - center.getX(), 2) + Math.pow(y - center.getY(), 2) + Math.pow(z - center.getZ(), 2);
+    public static Set<Position> getAllPositionsInRadius(Position center, int radius) {
+        Set<Position> positions = new HashSet<>();
+        for (int x = center.blockX() - radius; x <= center.blockX() + radius; x++) {
+            for (int y = center.blockY() - radius; y <= center.blockY() + radius; y++) {
+                for (int z = center.blockZ() - radius; z <= center.blockZ() + radius; z++) {
+                    double distanceSquared = Math.pow(x - center.blockX(), 2) + Math.pow(y - center.blockY(), 2) + Math.pow(z - center.blockZ(), 2);
                     if (distanceSquared <= Math.pow(radius, 2)) {
-                        positions.add(new BlockifyPosition(x, y, z));
+                        positions.add(Position.block(x, y, z));
                     }
                 }
             }

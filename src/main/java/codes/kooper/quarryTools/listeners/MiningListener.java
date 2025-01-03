@@ -7,13 +7,14 @@ import codes.kooper.quarryMines.database.models.Quarry;
 import codes.kooper.quarryTools.QuarryTools;
 import codes.kooper.quarryTools.events.QuarryMineEvent;
 import codes.kooper.quarryTools.items.PickaxeItems;
-import com.oresmash.blockify.events.BlockifyBreakEvent;
+import io.papermc.paper.math.Position;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.util.Vector;
 
 import java.util.Optional;
@@ -23,11 +24,12 @@ import static codes.kooper.koopKore.KoopKore.textUtils;
 public class MiningListener implements Listener {
 
     @EventHandler
-    public void onBlockifyBreak(BlockifyBreakEvent event) {
+    public void onBlockBreak(BlockBreakEvent event) {
+        if (!event.isClientSided()) return;
         Player player = event.getPlayer();
 
         if (!PickaxeItems.isPickaxe(player.getInventory().getItemInMainHand())) {
-            showError(player, event.getPosition().toLocation(player.getWorld()));
+            showError(player, event.getBlock().getLocation());
             event.setCancelled(true);
             return;
         }
@@ -59,9 +61,7 @@ public class MiningListener implements Listener {
                 new QuarryMineEvent(
                         quarry,
                         user,
-                        event.getPosition(),
-                        event.getStage(),
-                        event.getView(),
+                        event.getBlock().getLocation(),
                         player,
                         event.getBlockData(),
                         pickaxe

@@ -17,7 +17,7 @@ public class MoonListener implements Listener {
         QuarryMoons.getInstance().getMoonManager().progressMoon();
 
         // Particle Effect
-        Location location = event.getPosition().toLocation(event.getPlayer().getWorld());
+        Location location = event.getLocation().clone();
         MOONS moon = QuarryMoons.getInstance().getMoonManager().getCurrentMoon();
 
         if (moon == MOONS.CURSED) {

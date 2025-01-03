@@ -35,7 +35,7 @@ public class MineRewardListener implements Listener {
         ItemStack icon = new ItemStack(Material.NETHER_STAR);
         JSONMessage title = new JSONMessage(new TextComponent(numberUtils.commaFormat(user.getMined()) + " Blocks Mined!"));
         JSONMessage description = new JSONMessage(new TextComponent("Reward: Random Booster"));
-        AdvancementDisplay advancementDisplay = new AdvancementDisplay(icon, title, description, AdvancementDisplay.AdvancementFrame.CHALLENGE, AdvancementVisibility.ALWAYS);
+        AdvancementDisplay advancementDisplay = new AdvancementDisplay(icon, title, description, AdvancementDisplay.AdvancementFrame.TASK, AdvancementVisibility.ALWAYS);
         advancementDisplay.setX(1);
         advancementDisplay.setY(3.5f);
         Advancement rootAdvancement = new Advancement(new NameKey("quarrytools", "blocks"), advancementDisplay);

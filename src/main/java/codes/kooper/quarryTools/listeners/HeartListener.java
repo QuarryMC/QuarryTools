@@ -55,7 +55,7 @@ public class HeartListener implements Listener {
             return;
         }
         event.getUser().addHealth(1);
-        Location location = event.getPosition().toLocation(player.getWorld());
+        Location location = event.getLocation().clone();
         player.spawnParticle(Particle.HEART, location.add(new Vector(0.5, 0.5, 0.5)),5, 0,0 ,0 ,0);
         player.playSound(player.getLocation(), Sound.ITEM_TOTEM_USE, 5, 1.5f);
     }

@@ -11,10 +11,7 @@ import codes.kooper.shaded.entitylib.wrapper.WrapperEntity;
 import codes.kooper.shaded.nbtapi.NBT;
 import codes.kooper.shaded.packetevents.api.util.SpigotConversionUtil;
 import codes.kooper.shaded.packetevents.protocol.entity.type.EntityTypes;
-import com.oresmash.blockify.Blockify;
-import com.oresmash.blockify.models.Stage;
-import com.oresmash.blockify.models.View;
-import com.oresmash.blockify.types.BlockifyPosition;
+import io.papermc.paper.math.Position;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -62,12 +59,6 @@ public class QuarryBombItem {
         Optional<User> targetUser = KoopKore.getInstance().getUserAPI().getUser(player.getUniqueId());
         if (targetUser.isEmpty()) return false;
 
-        Stage stage = Blockify.getInstance().getStageManager().getStage(targetUser.get().getQuarry().toString());
-        if (stage == null) return false;
-
-        View view = stage.getView("mine");
-        if (view == null) return false;
-
         WrapperEntity wrapper = new WrapperEntity(EntityTypes.ITEM_DISPLAY);
         ItemDisplayMeta itemDisplayMeta = (ItemDisplayMeta) wrapper.getEntityMeta();
         itemDisplayMeta.setItem(SpigotConversionUtil.fromBukkitItemStack(item));
@@ -75,7 +66,7 @@ public class QuarryBombItem {
         Vector direction = player.getEyeLocation().getDirection().normalize().multiply(10);
         Location spawnLoc = player.getLocation();
         Location toLocation = spawnLoc.clone().add(direction);
-        BlockifyPosition highestPos = view.getHighestBlock(toLocation.getBlockX(), toLocation.getBlockZ());
+        Position highestPos = player.getChromaBlockManager().getHighestPosAtXAndZ(toLocation.getBlockX(), toLocation.getBlockZ());
         if (highestPos == null) return false;
         Location mineLocation = highestPos.toLocation(player.getWorld());
         wrapper.spawn(SpigotConversionUtil.fromBukkitLocation(spawnLoc));
@@ -93,7 +84,7 @@ public class QuarryBombItem {
                 wrapper.teleport(SpigotConversionUtil.fromBukkitLocation(spawnLoc));
 
                 if (spawnLoc.distanceSquared(mineLocation) <= 1.0) {
-                    MineUtils.luckyBlockNuker(player, BlockifyPosition.fromLocation(mineLocation.toLocation(player.getWorld())), view, stage, tier);
+                    MineUtils.luckyBlockNuker(player, mineLocation.toLocation(player.getWorld()), tier);
                     this.cancel();
                     wrapper.despawn();
                 }

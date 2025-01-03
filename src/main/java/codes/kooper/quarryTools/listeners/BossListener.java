@@ -73,7 +73,7 @@ public class BossListener implements Listener {
         if (quarry.getSpawnedBoss().isDead()) {
             QuarryMines.getInstance().getBossManager().killBoss(quarry, player);
         }
-        player.spawnParticle(Particle.SMALL_GUST, event.getPosition().toLocation(player.getWorld()).add(new Vector(0.5, 0.5, 0.5)), 5, 0.2, 0.2, 0.2, 0);
+        player.spawnParticle(Particle.SMALL_GUST, event.getLocation().clone().add(new Vector(0.5, 0.5, 0.5)), 5, 0.2, 0.2, 0.2, 0);
         healthLossSummary.put(player.getUniqueId(), healthLossSummary.getOrDefault(player.getUniqueId(), 0) + health);
     }
 
@@ -84,7 +84,7 @@ public class BossListener implements Listener {
         if (quarry.getSpawnedBoss() == null || event.getBlockData().getMaterial() != Material.NETHERRACK) return;
         int health = ThreadLocalRandom.current().nextInt(10, 31);
         quarry.getSpawnedBoss().addHealth(health);
-        player.spawnParticle(Particle.ANGRY_VILLAGER, event.getPosition().toLocation(player.getWorld()).add(new Vector(0.5, 0.5, 0.5)), 5, 0.2, 0.2, 0.2, 0);
+        player.spawnParticle(Particle.ANGRY_VILLAGER, event.getLocation().clone().add(new Vector(0.5, 0.5, 0.5)), 5, 0.2, 0.2, 0.2, 0);
         player.playSound(player.getLocation(), Sound.ENTITY_BEE_HURT, 5, 0.7f);
         player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_SNARE, 5, 0.7f);
         healthGainSummary.put(player.getUniqueId(), healthGainSummary.getOrDefault(player.getUniqueId(), 0) + health);

@@ -69,31 +69,25 @@
         <dependency>
             <groupId>io.papermc.paper</groupId>
             <artifactId>paper-api</artifactId>
-            <version>1.21.3-R0.1-SNAPSHOT</version>
+            <version>1.21.4-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>codes.kooper</groupId>
             <artifactId>KoopKore</artifactId>
-            <version>1.4.0</version>
+            <version>1.4.3</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>codes.kooper</groupId>
             <artifactId>quarrymines</artifactId>
-            <version>1.0.8</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.oresmash</groupId>
-            <artifactId>Blockify</artifactId>
-            <version>1.0.5</version>
+            <version>1.1.0</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>codes.kooper</groupId>
             <artifactId>quarrymoons</artifactId>
-            <version>1.0.5</version>
+            <version>1.0.6</version>
             <scope>provided</scope>
         </dependency>
         <dependency>

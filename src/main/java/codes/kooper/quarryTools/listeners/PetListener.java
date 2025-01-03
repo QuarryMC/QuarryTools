@@ -4,7 +4,7 @@ import codes.kooper.koopKore.utils.CacheEntry;
 import codes.kooper.quarryPets.QuarryPets;
 import codes.kooper.quarryPets.database.models.Pet;
 import codes.kooper.quarryTools.events.QuarryMineEvent;
-import codes.kooper.quarryTools.utils.MineUtils;
+//import codes.kooper.quarryTools.utils.MineUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -57,6 +57,6 @@ public class PetListener implements Listener {
         int level = petLevelCache.get(player.getUniqueId());
         double chance = level / 200.0;
         if (ThreadLocalRandom.current().nextDouble(0, 101) > chance) return;
-        MineUtils.luckyBlockNuker(player, event.getPosition(), event.getView(), event.getStage(), nukerRadius);
+//        MineUtils.luckyBlockNuker(player, event.getPosition(), event.getView(), event.getStage(), nukerRadius);
     }
 }

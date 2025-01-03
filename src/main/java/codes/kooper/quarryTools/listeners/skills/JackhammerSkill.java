@@ -1,12 +1,16 @@
 package codes.kooper.quarryTools.listeners.skills;
 
 import codes.kooper.koopKore.database.models.User;
+import codes.kooper.models.View;
+import codes.kooper.quarryMines.utils.BlockUtils;
+import codes.kooper.quarryMines.utils.QuarryBlockUtils;
 import codes.kooper.quarrySkills.QuarrySkills;
 import codes.kooper.quarrySkills.managers.SkillManager;
 import codes.kooper.quarrySkills.models.Skill;
 import codes.kooper.quarryTools.events.QuarryMineEvent;
-import com.oresmash.blockify.types.BlockifyPosition;
-import com.oresmash.blockify.utils.BlockUtils;
+import codes.kooper.quarryTools.utils.MineUtils;
+import io.papermc.paper.math.Position;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
@@ -17,6 +21,7 @@ import org.bukkit.event.Listener;
 
 import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 public class JackhammerSkill implements Listener {
@@ -30,26 +35,30 @@ public class JackhammerSkill implements Listener {
         Skill skill = QuarrySkills.getInstance().getSkillManager().getSkills().get("jackhammer");
         if (ThreadLocalRandom.current().nextDouble() > SkillManager.getChance(user, skill)) return;
 
-        BlockifyPosition loc1 = new BlockifyPosition(event.getPosition().getX(), event.getPosition().getY(), event.getPosition().getZ());
-        BlockifyPosition loc2 = new BlockifyPosition(event.getPosition().getX(), event.getPosition().getY(), event.getPosition().getZ());
-        loc1.setX(loc1.getX() - 3);
-        loc1.setZ(loc1.getZ() - 3);
-        loc2.setX(loc2.getX() + 3);
-        loc2.setZ(loc2.getZ() + 3);
+        View view = player.getChromaBlockManager().getView(player.getName(), "mine");
+        if (view == null) return;
 
-        Set<BlockifyPosition> positions = BlockUtils.getBlocksBetween(loc1, loc2);
+        Location loc1 = new Location(player.getWorld(), view.getBound().getMaxX(), event.getLocation().getBlockY(), view.getBound().getMaxZ());
+        Location loc2 = new Location(player.getWorld(), view.getBound().getMinX(), event.getLocation().getBlockY(), view.getBound().getMinZ());
+
+        Set<Position> positions = BlockUtils.getBlocksBetween(loc1, loc2);
         if (positions.isEmpty()) return;
+
+        int count = positions.size();
+        AtomicInteger glazedCount = new AtomicInteger();
 
         positions = positions.stream()
                 .filter(position -> {
-                    BlockData blockData = event.getView().getBlock(position);
+                    BlockData blockData = player.getChromaBlockManager().getBlockData(position);
                     if (blockData == null) return false;
 
                     Material material = blockData.getMaterial();
+                    if (material.name().contains("GLAZED")) {
+                        glazedCount.getAndIncrement();
+                    }
                     if (event.getQuarry().getSpawnedBoss() != null && material == event.getQuarry().getSpawnedBoss().getBoss().bossBlock())
                         return false;
                     return material != Material.AIR &&
-                            !material.name().contains("GLAZED") &&
                             material != Material.NETHERRACK &&
                             material != Material.ANCIENT_DEBRIS &&
                             material != Material.REDSTONE_BLOCK;
@@ -58,14 +67,20 @@ public class JackhammerSkill implements Listener {
 
         if (positions.isEmpty()) return;
 
-        for (BlockifyPosition position : positions) {
-            BlockData blockData = event.getView().getBlock(position);
-            player.spawnParticle(Particle.BLOCK, position.toLocation(player.getWorld()), 10, 0.3, 0.3, 0.3, blockData);
-            event.getView().setBlock(position, Material.AIR.createBlockData());
-            event.addBlocks(1);
+        for (Position position : positions) {
+            BlockData blockData = player.getChromaBlockManager().getBlockData(position);
+            player.spawnParticle(Particle.BLOCK, position.toLocation(player.getWorld()), 1, 0.3, 0.3, 0.3, blockData);
+            player.getChromaBlockManager().setBlock(position, Material.AIR.createBlockData());
         }
 
-        event.getStage().refreshBlocksToAudience(positions);
+        for (int i = 0; i < (glazedCount.get() / 20); i++) {
+            QuarryBlockUtils.handleLuckyBlock(event.getUser());
+        }
+
+        event.addBlocks(positions.size() / 10);
+        event.addResetBlocks(count);
+
+        player.getChromaBlockManager().refreshBlocks(positions);
         if (!user.hasDisabledSkillNotification("jackhammer")) {
             player.playSound(player.getLocation(), Sound.BLOCK_PISTON_EXTEND, 1, 1);
         }
