@@ -27,7 +27,6 @@ public class CodexGUI {
 
         for (int row = startRow; row <= endRow; row++) {
             for (int col = startCol; col <= endCol; col++) {
-                int slot = (row - 1) * 9 + (col - 1);
                 GuiItem sunflowerItem = ItemBuilder.from(Material.SUNFLOWER)
                         .name(Component.text("Beautiful Sunflower"))
                         .lore(
@@ -35,7 +34,11 @@ public class CodexGUI {
                                 Component.text("Perfect for your codex!")
                         )
                         .asGuiItem();
-                gui.setItem(slot, sunflowerItem);
+
+                int slot = (row - 1) * 9 + (col - 1);
+                if (slot < gui.getRows() * 9) {  // Ensure the slot is valid
+                    gui.setItem(slot, sunflowerItem);
+                }
             }
         }
 
