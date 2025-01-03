@@ -39,4 +39,3 @@ public class CodexGUI {
         gui.open(player);
     }
 }
-//
