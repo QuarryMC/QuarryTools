@@ -7,7 +7,7 @@ import codes.kooper.shaded.litecommands.annotations.execute.Execute;
 import codes.kooper.shaded.litecommands.annotations.permission.Permission;
 import org.bukkit.entity.Player;
 
-@Command(name = "helo", aliases = {"codex", "tutorial", "guide"})
+@Command(name = "help", aliases = {"codex", "tutorial", "guide"})
 @Permission("codex.open")
 public class CodexCommand {
 
