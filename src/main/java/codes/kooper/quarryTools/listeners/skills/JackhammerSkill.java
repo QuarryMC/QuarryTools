@@ -7,9 +7,7 @@ import codes.kooper.quarryMines.utils.QuarryBlockUtils;
 import codes.kooper.quarrySkills.QuarrySkills;
 import codes.kooper.quarrySkills.managers.SkillManager;
 import codes.kooper.quarrySkills.models.Skill;
-import codes.kooper.quarryTools.QuarryTools;
 import codes.kooper.quarryTools.events.QuarryMineEvent;
-import codes.kooper.quarryTools.utils.MineUtils;
 import io.papermc.paper.math.Position;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -69,9 +67,10 @@ public class JackhammerSkill implements Listener {
         if (positions.isEmpty()) return;
 
         for (Position position : positions) {
+            player.getChromaBlockManager().setBlock(position, Material.AIR.createBlockData());
+            if (user.hasOption("particles")) continue;
             BlockData blockData = player.getChromaBlockManager().getBlockData(position);
             player.spawnParticle(Particle.BLOCK, position.toLocation(player.getWorld()), 1, 0.3, 0.3, 0.3, blockData);
-            player.getChromaBlockManager().setBlock(position, Material.AIR.createBlockData());
         }
 
         for (int i = 0; i < (glazedCount.get() / 20); i++) {
@@ -79,7 +78,7 @@ public class JackhammerSkill implements Listener {
         }
 
         event.addBlocks(positions.size() / 10);
-        QuarryTools.getInstance().getMineResetManager().mineBlocks(event.getQuarry(), count);
+        event.addResetBlocks(count);
 
         player.getChromaBlockManager().refreshBlocks(positions);
         if (!user.hasDisabledSkillNotification("jackhammer")) {

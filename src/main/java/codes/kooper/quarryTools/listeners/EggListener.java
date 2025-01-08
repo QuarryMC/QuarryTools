@@ -16,8 +16,8 @@ public class EggListener implements Listener {
 
         int add = 1;
         if (user.hasSkill("candy") && !user.hasDisabledSkill("candy")) {
-            int max = (int) (user.getSkillLevel("candy") / 200);
-            add = ThreadLocalRandom .current().nextInt(1, max + 1);
+            int max = (int) Math.max(1, user.getSkillLevel("candy") / 200);
+            add = ThreadLocalRandom.current().nextInt(1, max + 1);
         }
 
         QuarryPets.getInstance().getEggManager().progressEggs(event.getPlayer(), add);

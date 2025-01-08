@@ -86,7 +86,14 @@ public class MineUtils {
                     // Process positions
                     final Iterator<Position> iterator = positions.iterator();
                     while (iterator.hasNext()) {
-                        Position pos = iterator.next();
+
+                        // Prevent concurrent exceptions
+                        Position pos;
+                        try {
+                            pos = iterator.next();
+                        } catch (Exception e) {
+                            return;
+                        }
 
                         WrapperEntity wrapper = entityMap.get(pos);
                         Location location = SpigotConversionUtil.toBukkitLocation(player.getWorld(), wrapper.getLocation());
@@ -94,7 +101,7 @@ public class MineUtils {
                         midPoint.add((5 / 2.0) - 0.5, 0, (5 / 2.0) - 0.5);
 
                         // Check distance and remove if within range
-                        if (location.distanceSquared(midPoint) <= 0.5) {
+                        if (location.distanceSquared(midPoint) <= 2.5) {
                             iterator.remove();
                             wrapper.despawn();
                             if (positions.isEmpty()) {
@@ -108,8 +115,10 @@ public class MineUtils {
                             }
                         }
 
-                        // Move block display towards the TNT block
-                        Vector direction = midPoint.toVector().subtract(location.toVector()).normalize().multiply(1.25);
+                        // Calculate speed based on distance
+                        double distance = location.distance(midPoint);
+                        double speed = Math.max(0.5, Math.min(1.5, 150.0 / distance)); // Speed increases as distance decreases
+                        Vector direction = midPoint.toVector().subtract(location.toVector()).normalize().multiply(speed);
                         location.add(direction);
                         wrapper.teleport(SpigotConversionUtil.fromBukkitLocation(location));
 

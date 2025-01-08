@@ -23,6 +23,7 @@ public class QuarryMineEvent extends Event {
     private final BlockData blockData;
     private final PickaxeItems.Pickaxe pickaxe;
     private final AtomicInteger blocks = new AtomicInteger(1);
+    private final AtomicInteger resetBlocks = new AtomicInteger(1);
 
     public QuarryMineEvent(Quarry quarry, User user, Location location, Player player, BlockData blockData, PickaxeItems.Pickaxe pickaxe) {
         super(true);
@@ -36,6 +37,10 @@ public class QuarryMineEvent extends Event {
 
     public void addBlocks(int blocks) {
         this.blocks.getAndAdd(blocks);
+    }
+
+    public void addResetBlocks(int blocks) {
+        this.resetBlocks.getAndAdd(blocks);
     }
 
     @Override

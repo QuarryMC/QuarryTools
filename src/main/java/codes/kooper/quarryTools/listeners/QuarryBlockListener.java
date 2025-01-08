@@ -11,10 +11,12 @@ public class QuarryBlockListener implements Listener {
     @EventHandler
     public void onQuarryBlock(QuarryMineEvent event) {
         if (!event.getBlockData().getMaterial().name().contains("GLAZED")) {
+            if (event.getUser().hasOption("block_sounds")) return;
             event.getPlayer().playSound(event.getLocation(), Sound.BLOCK_ANCIENT_DEBRIS_BREAK, 1, 1.3f);
             return;
         }
         QuarryBlockUtils.handleLuckyBlock(event.getUser());
+        if (event.getUser().hasOption("block_sounds")) return;
         event.getPlayer().playSound(event.getLocation(), Sound.BLOCK_AMETHYST_BLOCK_BREAK, 1, 1.3f);
     }
 

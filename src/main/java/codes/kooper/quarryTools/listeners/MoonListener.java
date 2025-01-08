@@ -16,6 +16,8 @@ public class MoonListener implements Listener {
     public void onBreak(QuarryMineEvent event) {
         QuarryMoons.getInstance().getMoonManager().progressMoon();
 
+        if (event.getUser().hasOption("particles")) return;
+
         // Particle Effect
         Location location = event.getLocation().clone();
         MOONS moon = QuarryMoons.getInstance().getMoonManager().getCurrentMoon();

@@ -5,6 +5,7 @@ import codes.kooper.quarryPets.QuarryPets;
 import codes.kooper.quarryPets.database.models.Pet;
 import codes.kooper.quarryTools.events.QuarryMineEvent;
 //import codes.kooper.quarryTools.utils.MineUtils;
+import codes.kooper.quarryTools.utils.MineUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -34,7 +35,7 @@ public class PetListener implements Listener {
     @EventHandler
     public void onMine(QuarryMineEvent event) {
         int add = ThreadLocalRandom.current().nextInt(1, 6);
-        QuarryPets.getInstance().getPetManager().addXPToPets(event.getPlayer(), add);
+        QuarryPets.getInstance().getPetManager().addXPToPets(event.getPlayer(), add, event.getUser());
     }
 
     @EventHandler
@@ -57,6 +58,6 @@ public class PetListener implements Listener {
         int level = petLevelCache.get(player.getUniqueId());
         double chance = level / 200.0;
         if (ThreadLocalRandom.current().nextDouble(0, 101) > chance) return;
-//        MineUtils.luckyBlockNuker(player, event.getPosition(), event.getView(), event.getStage(), nukerRadius);
+        MineUtils.luckyBlockNuker(player, event.getLocation(), nukerRadius);
     }
 }

@@ -37,7 +37,7 @@ public class MineRewardListener implements Listener {
         JSONMessage description = new JSONMessage(new TextComponent("Reward: Random Booster"));
         AdvancementDisplay advancementDisplay = new AdvancementDisplay(icon, title, description, AdvancementDisplay.AdvancementFrame.TASK, AdvancementVisibility.ALWAYS);
         advancementDisplay.setX(1);
-        advancementDisplay.setY(3.5f);
+        advancementDisplay.setY(10f);
         Advancement rootAdvancement = new Advancement(new NameKey("quarrytools", "blocks"), advancementDisplay);
         String booster = boosters[ThreadLocalRandom.current().nextInt(boosters.length)];
         double multi = ThreadLocalRandom.current().nextDouble(0.25, 1.01);

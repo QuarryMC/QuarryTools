@@ -6,7 +6,6 @@ import codes.kooper.quarryTools.database.cache.PickStorageCache;
 import codes.kooper.quarryTools.database.listeners.PickaxeLoadListener;
 import codes.kooper.quarryTools.database.models.PickaxeStorage;
 import codes.kooper.quarryTools.database.services.PickaxeService;
-//import codes.kooper.quarryTools.listeners.AutoMineListener;
 import codes.kooper.quarryTools.commands.arguments.ArmorSetArgument;
 import codes.kooper.quarryTools.items.ArmorItems;
 import codes.kooper.quarryTools.items.PickaxeItems;
@@ -40,6 +39,7 @@ public final class QuarryTools extends JavaPlugin {
     private PickaxeService pickaxeService;
     private PickStorageCache pickStorageCache;
     private DataSyncTask<UUID, PickaxeStorage> pickSyncTask;
+    private AutoMineListener autoMineListener;
 
     @Override
     public void onEnable() {
@@ -64,7 +64,8 @@ public final class QuarryTools extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new ArmorChangeListener(), this);
         getServer().getPluginManager().registerEvents(new QuarryBombListener(), this);
         getServer().getPluginManager().registerEvents(new PickaxeListener(), this);
-//        getServer().getPluginManager().registerEvents(new AutoMineListener(), this);
+        autoMineListener = new AutoMineListener();
+        getServer().getPluginManager().registerEvents(autoMineListener, this);
         getServer().getPluginManager().registerEvents(new MineRewardListener(), this);
 
         // Skills
@@ -98,7 +99,8 @@ public final class QuarryTools extends JavaPlugin {
                         new GiveArmorSetCommand(),
                         new GiveQuarryBombCommand(),
                         new FixPickaxeCommand(),
-                        new CodexCommand()
+                        new CodexCommand(),
+                        new AutominerCommand()
                 )
                 .argument(ArmorItems.ArmorSet.class, new ArmorSetArgument())
                 .argumentSuggestion(String.class, SuggestionResult.of(itemManager.getItems().keySet()))

@@ -136,7 +136,7 @@ public class PickaxeItems {
 
     public static int getXPCost(int level) {
         if (level >= 100) return -1;
-        return (int) (1000 * level + Math.pow(level, 2) * 50) * 5;
+        return (int) (1000 * level + Math.pow(level, 2) * 50) * 50;
     }
 
     public static void addPickaxeXP(Player player, Pickaxe pickaxe, double amount) {
