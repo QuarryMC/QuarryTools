@@ -31,43 +31,48 @@ public class CodexGUI {
 
         List<ItemDetails> items = List.of(
                 new ItemDetails(Material.PURPLE_WOOL, "Prestige", textUtils.colorize(List.of(
-                        "<dark_purple>/prestige",
+                        "<dark_purple>Command: /prestige",
                         "<light_purple>Prestiging gives you skill tokens,",
-                        "<light_purple>As well as unlocks better mines when you get enough"
+                        "<light_purple>as well as unlocks better mines when you get enough."
                 ))),
                 new ItemDetails(Material.GOLD_BLOCK, "Rebirth", textUtils.colorize(List.of(
-                        "<yellow>/rebirth",
+                        "<yellow>Command: /rebirth",
                         "<#dcc100>Rebirthing gives you a Rebirth Lootbox,",
-                        "<#dcc100>Better lucky blocks,",
-                        "<#dcc100>As well as access to a Rebirth mine and /rebirthshop"
+                        "<#dcc100>better lucky blocks,",
+                        "<#dcc100>as well as access to a Rebirth mine and /rebirthshop."
                 ))),
                 new ItemDetails(Material.IRON_INGOT, "Auto Sell", textUtils.colorize(List.of(
-                        "<white>/autosell",
-                        "<grey>(tbd)"
+                        "<white>Command: /autosell",
+                        "<grey>People With COMET rank or above can use /autosell",
+                        "<grey>Solar rank or below, you cannot."
                 ))),
                 new ItemDetails(Material.EMERALD, "Auto Prestige", textUtils.colorize(List.of(
-                        "<dark_green>/automine",
-                        "<green>(tbd)"
+                        "<dark_green>Command: /autoprestige",
+                        "<green>There is no rank requirement to use /autoprestige."
                 ))),
                 new ItemDetails(Material.COBBLESTONE, "Auto Miner", textUtils.colorize(List.of(
-                        "<dark_gray>/automine",
-                        "<gray>(tbd)"
+                        "<dark_gray>Command: /autominer",
+                        "<gray>Players can purchase autominer time and speed",
+                        "<gray>and activate the autominer via heading to the upgrades tab in the gui."
                 ))),
                 new ItemDetails(Material.ENDER_DRAGON_SPAWN_EGG, "Bosses", textUtils.colorize(List.of(
-                        "<#292828>/bosses",
-                        "<dark_purple>(tbd)"
+                        "<#292828>Command: /bosses",
+                        "<dark_purple>Once you have 4 of a certain type of boss block,",
+                        "<dark_purple>you can use /bosses to fight a boss."
                 ))),
                 new ItemDetails(Material.DIAMOND, "Skills", textUtils.colorize(List.of(
-                        "<aqua>/skills",
-                        "<dark_blue>(tbd)"
-                ))),
-                new ItemDetails(Material.IRON_BARS, "Cells", textUtils.colorize(List.of(
-                        "<white>/cells",
-                        "<#292828>(tbd.)"
+                        "<aqua>Command: /skills",
+                        "<dark_blue>Using /skills brings up your pickaxe skills.",
+                        "<dark_blue>You can see how much each skill costs by hovering over it."
                 ))),
                 new ItemDetails(Material.CHEST, "Crates", textUtils.colorize(List.of(
-                        "<#684b0a>No Command Yet",
-                        "<#af882f>(tbd)"
+                        "<#684b0a>No Command",
+                        "<#af882f>After getting keys from mining, voting, etc",
+                        "<#af882f>take your keys over to the crates and open them for rewards."
+                ))),
+                new ItemDetails(Material.IRON_BARS, "Cells", textUtils.colorize(List.of(
+                        "<white>Command: /cells",
+                        "<#292828>(NOT OUT YET)"
                 ))),
                 new ItemDetails(Material.GRAY_STAINED_GLASS_PANE, "???", textUtils.colorize(List.of(
                         "<gray>???",
