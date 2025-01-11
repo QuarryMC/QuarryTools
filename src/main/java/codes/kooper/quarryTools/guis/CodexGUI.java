@@ -53,7 +53,8 @@ public class CodexGUI {
                 new ItemDetails(Material.COBBLESTONE, "Auto Miner", textUtils.colorize(List.of(
                         "<dark_gray>Command: /autominer",
                         "<gray>Players can purchase autominer time and speed",
-                        "<gray>and activate the autominer via heading to the upgrades tab in the gui."
+                        "<gray>via heading to the upgrades tab in the gui",
+                        "<gray>the autominer is also activated/deactivated via the gui."
                 ))),
                 new ItemDetails(Material.ENDER_DRAGON_SPAWN_EGG, "Bosses", textUtils.colorize(List.of(
                         "<#292828>Command: /bosses",
