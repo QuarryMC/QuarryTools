@@ -83,7 +83,7 @@ public class CodexGUI {
                         "<#af882f>After getting keys from mining, voting, etc",
                         "<#af882f>take your keys over to the crates and open them for rewards."
                 ))),
-                new ItemDetails(Material.FIRE_CHARGE, "Daily Mined Leaderboard", textUtils.colorize(List.of(
+                new ItemDetails(Material.FIRE_CHARGE, "Leaderboard", textUtils.colorize(List.of(
                         "<#740a04>No Command",
                         "<#fb7604>Top 5 players with the most mined blocks get comets",
                         "<#fb7604>comets can be used in the quarry shop to buy many things."
