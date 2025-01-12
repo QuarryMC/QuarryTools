@@ -66,7 +66,9 @@ public class BossListener implements Listener {
             player.sendMessage(textUtils.colorize(skill.color1() + "<bold>SWORDER<reset><dark_gray>:" + skill.color2() + "You hit the boss for 2x damage!"));
             player.playSound(player.getLocation(), Sound.ENTITY_IRON_GOLEM_DAMAGE, 5, 1.5f);
         } else {
-            player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_HURT, 5, 1.5f);
+            if (!user.hasOption("boss_block_sounds")) {
+                player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_HURT, 5, 1.5f);
+            }
         }
         quarry.getSpawnedBoss().removeHealth(health);
         QuarryMines.getInstance().getBossManager().damageBossEffect(quarry);
@@ -85,9 +87,10 @@ public class BossListener implements Listener {
         int health = ThreadLocalRandom.current().nextInt(10, 31);
         quarry.getSpawnedBoss().addHealth(health);
         player.spawnParticle(Particle.ANGRY_VILLAGER, event.getLocation().clone().add(new Vector(0.5, 0.5, 0.5)), 5, 0.2, 0.2, 0.2, 0);
+        healthGainSummary.put(player.getUniqueId(), healthGainSummary.getOrDefault(player.getUniqueId(), 0) + health);
+        if (event.getUser().hasOption("boss_block_sounds")) return;
         player.playSound(player.getLocation(), Sound.ENTITY_BEE_HURT, 5, 0.7f);
         player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_SNARE, 5, 0.7f);
-        healthGainSummary.put(player.getUniqueId(), healthGainSummary.getOrDefault(player.getUniqueId(), 0) + health);
     }
 
 }

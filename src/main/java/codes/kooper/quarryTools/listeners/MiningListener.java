@@ -7,7 +7,6 @@ import codes.kooper.quarryMines.database.models.Quarry;
 import codes.kooper.quarryTools.QuarryTools;
 import codes.kooper.quarryTools.events.QuarryMineEvent;
 import codes.kooper.quarryTools.items.PickaxeItems;
-import io.papermc.paper.math.Position;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
@@ -28,11 +27,20 @@ public class MiningListener implements Listener {
         if (!event.isClientSided()) return;
         Player player = event.getPlayer();
 
-        if (!PickaxeItems.isPickaxe(player.getInventory().getItemInMainHand())) {
+        if (QuarryMines.getInstance().getApi().getWatching(player).isPresent()) {
+            player.sendMessage(textUtils.error("You can't mine while spectating!"));
             showError(player, event.getBlock().getLocation());
             event.setCancelled(true);
             return;
         }
+
+        if (!PickaxeItems.isPickaxe(player.getInventory().getItemInMainHand())) {
+            player.sendMessage(textUtils.error("You must use a pickaxe to mine!"));
+            showError(player, event.getBlock().getLocation());
+            event.setCancelled(true);
+            return;
+        }
+
         PickaxeItems.Pickaxe pickaxe = QuarryTools.getInstance().getPickaxeItems().getPickaxe(player.getInventory().getItemInMainHand());
 
         Optional<User> userOptional = KoopKore.getInstance().getUserAPI().getUser(player.getUniqueId());
@@ -77,6 +85,5 @@ public class MiningListener implements Listener {
     private void showError(Player player, Location location) {
         player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 5, 0.5f);
         player.spawnParticle(Particle.ANGRY_VILLAGER, location.add(new Vector(0.5, 0.5, 0.5)),  5, 0,0 ,0 ,0);
-        player.sendMessage(textUtils.error("You must use a pickaxe to mine!"));
     }
 }
