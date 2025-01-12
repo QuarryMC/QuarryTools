@@ -66,26 +66,31 @@ public class CodexGUI {
                         "<dark_blue>Using /skills brings up your pickaxe skills.",
                         "<dark_blue>You can see how much each skill costs by hovering over it."
                 ))),
+                new ItemDetails(Material.MOOSHROOM_SPAWN_EGG, "Eggs & Pets", textUtils.colorize(List.of(
+                        "<#a00f10>Commands: /eggs & /pets",
+                        "<#b7b7b7>Once you use an egg, you can run /eggs to see all your eggs",
+                        "<#b7b7b7>choose an egg and mine the required amount of blocks for your egg",
+                        "<#b7b7b7>once you claim your pet use /pets to equip your new pet.",
+                        "<#b7b7b7>pets give you fortune and sell boosts that scale with pet level."
+                ))),
+                new ItemDetails(Material.EXPERIENCE_BOTTLE, "Reclaim", textUtils.colorize(List.of(
+                        "<dark_green>Command: /reclaim",
+                        "<yellow>This command allows you to claim rank based rewards",
+                        "<yellow>so every season you can claim rewards for your rank via /reclaim."
+                ))),
                 new ItemDetails(Material.CHEST, "Crates", textUtils.colorize(List.of(
                         "<#684b0a>No Command",
                         "<#af882f>After getting keys from mining, voting, etc",
                         "<#af882f>take your keys over to the crates and open them for rewards."
                 ))),
+                new ItemDetails(Material.FIRE_CHARGE, "Leaderboard", textUtils.colorize(List.of(
+                        "<#740a04>No Command",
+                        "<#fb7604>Top 5 players with the most mined blocks get comets",
+                        "<#fb7604>comets can be used in the quarry shop to buy many things."
+                ))),
                 new ItemDetails(Material.IRON_BARS, "Cells", textUtils.colorize(List.of(
                         "<white>Command: /cells",
                         "<#292828>(NOT OUT YET)"
-                ))),
-                new ItemDetails(Material.GRAY_STAINED_GLASS_PANE, "???", textUtils.colorize(List.of(
-                        "<gray>???",
-                        "<green>???"
-                ))),
-                new ItemDetails(Material.GRAY_STAINED_GLASS_PANE, "???", textUtils.colorize(List.of(
-                        "<gray>???",
-                        "<green>???"
-                ))),
-                new ItemDetails(Material.GRAY_STAINED_GLASS_PANE, "???", textUtils.colorize(List.of(
-                        "<gray>???",
-                        "<green>???"
                 ))),
                 new ItemDetails(Material.GRAY_STAINED_GLASS_PANE, "???", textUtils.colorize(List.of(
                         "<gray>???",
