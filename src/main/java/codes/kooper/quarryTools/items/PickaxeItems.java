@@ -6,12 +6,17 @@ import codes.kooper.quarryTools.enums.RARITIES;
 import codes.kooper.quarryTools.enums.TOOL_TYPES;
 import codes.kooper.shaded.nbtapi.NBT;
 import dev.lone.itemsadder.api.CustomStack;
+import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.Sound;
+import org.bukkit.attribute.Attribute;
+import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -85,7 +90,6 @@ public class PickaxeItems {
                 .setLore(pickaxe.getLore(fortune, rarity))
                 .addEnchant(Enchantment.EFFICIENCY, 500, true)
                 .setUnbreakable(true)
-                .hideFlags(true)
                 .build();
         NBT.modify(item, nbt -> {
             nbt.setString("pickaxe", name);
@@ -93,6 +97,10 @@ public class PickaxeItems {
             nbt.setInteger("fortune", fortune);
             nbt.setDouble("fortune-boost", 0.1);
         });
+        ItemMeta itemMeta = item.getItemMeta();
+        itemMeta.addAttributeModifier(Attribute.SPAWN_REINFORCEMENTS, new AttributeModifier(NamespacedKey.fromString("attribute"), 0, AttributeModifier.Operation.ADD_NUMBER));
+        itemMeta.removeItemFlags(ItemFlag.values());
+        item.setItemMeta(itemMeta);
         return item;
     }
 

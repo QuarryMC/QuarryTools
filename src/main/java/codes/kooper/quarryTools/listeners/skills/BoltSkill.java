@@ -27,8 +27,8 @@ public class BoltSkill implements Listener {
         ItemStack item = player.getInventory().getItem(event.getNewSlot());
 
         if (PickaxeItems.isPickaxe(item)) {
-            player.addPotionEffect(new PotionEffect(PotionEffectType.HASTE, Integer.MAX_VALUE, 4, false, false));
-            player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 4, false, false));
+            player.addPotionEffect(new PotionEffect(PotionEffectType.HASTE, Integer.MAX_VALUE, 10, false, false, false));
+            player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 5, false, false, false));
         } else {
             player.removePotionEffect(PotionEffectType.HASTE);
             player.removePotionEffect(PotionEffectType.SPEED);
