@@ -83,6 +83,12 @@ public class CodexGUI {
                         "<#A94064>This command brings up your preferences.",
                         "<#A94064>many togglable setting are located here."
                 ))),
+                new ItemDetails(Material.END_GATEWAY, "Moons", textUtils.colorize(List.of(
+                        "<#02006C>/moons",
+                        "<dark_purple>This command brings brings up the moons GUI.",
+                        "<dark_purple>the gui showcases the current moons aswell as their chances."
+
+                ))),
                 new ItemDetails(Material.CHEST, "Crates", textUtils.colorize(List.of(
                         "<#684b0a>No Command",
                         "<#af882f>After getting keys from mining, voting, etc",
@@ -96,10 +102,6 @@ public class CodexGUI {
                 new ItemDetails(Material.IRON_BARS, "Cells", textUtils.colorize(List.of(
                         "<white>Command: /cells",
                         "<#292828>(NOT OUT YET)"
-                ))),
-                new ItemDetails(Material.GRAY_STAINED_GLASS_PANE, "???", textUtils.colorize(List.of(
-                        "<gray>???",
-                        "<green>???"
                 )))
         );
 
