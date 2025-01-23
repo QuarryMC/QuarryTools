@@ -78,6 +78,11 @@ public class CodexGUI {
                         "<yellow>This command allows you to claim rank based rewards",
                         "<yellow>so every season you can claim rewards for your rank via /reclaim."
                 ))),
+                new ItemDetails(Material.PINK_WOOL, "Preferences", textUtils.colorize(List.of(
+                        "<#FFC1CC>Command: /preferences",
+                        "<#A94064>This command brings up your preferences.",
+                        "<#A94064>many togglable setting are located here."
+                ))),
                 new ItemDetails(Material.CHEST, "Crates", textUtils.colorize(List.of(
                         "<#684b0a>No Command",
                         "<#af882f>After getting keys from mining, voting, etc",
@@ -91,10 +96,6 @@ public class CodexGUI {
                 new ItemDetails(Material.IRON_BARS, "Cells", textUtils.colorize(List.of(
                         "<white>Command: /cells",
                         "<#292828>(NOT OUT YET)"
-                ))),
-                new ItemDetails(Material.GRAY_STAINED_GLASS_PANE, "???", textUtils.colorize(List.of(
-                        "<gray>???",
-                        "<green>???"
                 ))),
                 new ItemDetails(Material.GRAY_STAINED_GLASS_PANE, "???", textUtils.colorize(List.of(
                         "<gray>???",
