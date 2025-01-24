@@ -44,7 +44,7 @@ public class CodexGUI {
                 new ItemDetails(Material.IRON_INGOT, "Auto Sell", textUtils.colorize(List.of(
                         "<white>Command: /autosell",
                         "<grey>People With COMET rank or above can use /autosell",
-                        "<grey>Solar rank or below, you cannot."
+                        "<grey>solar rank or below, you cannot."
                 ))),
                 new ItemDetails(Material.EMERALD, "Auto Prestige", textUtils.colorize(List.of(
                         "<dark_green>Command: /autoprestige",
