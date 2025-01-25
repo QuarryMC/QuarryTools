@@ -64,12 +64,6 @@ public class CodexGUI {
                         "<#609e60>Commands: /eggs & /pets"
 
                 ))),
-                new ItemDetails(Material.GRAY_WOOL, textUtils.colorize("<dark_gray><bold>Preferences"), textUtils.colorize(List.of(
-                        "<gray>This command brings up your "+"<dark_gray>preferences.",
-                        "<gray>many QOL togglable settings are located here.",
-                        "",
-                        "<gray><bold>Command: /preferences"
-                ))),
                 new ItemDetails(Material.GOLD_BLOCK, textUtils.colorize("<#ffbf00><bold>Auto Miner"), textUtils.colorize(List.of(
                         "<gray>Players can purchase "+"<#ffbf00>autominer"+"<gray> time and speed",
                         "<gray>via the upgrades tab in the autominergui",
@@ -84,6 +78,13 @@ public class CodexGUI {
                         "",
                         "<gray><bold>Command: /moons"
 
+                ))),
+                new ItemDetails(Material.PAPER, textUtils.colorize("<white><bold>Useful Commands"), textUtils.colorize(List.of(
+                        "<gray><bold>/mines        | Shows all unlockable mines",
+                        "<gray><bold>/autosell     | automatically sells your backpack when its full (rank locked cmd)",
+                        "<gray><bold>/autoprestige | automatically prestiges (need required currencies & level)",
+                        "<gray><bold>/pay          | is used to pay other players currencies.",
+                        "<gray><bold>/preferences  | many QOL settings are located here."
                 ))),
                 new ItemDetails(Material.REDSTONE_BLOCK, textUtils.colorize("<red><bold>Hearts"), textUtils.colorize(List.of(
                         "On Quarry, "+"<red>Hearts "+"<grey>are a currency that can be used to purchase",
