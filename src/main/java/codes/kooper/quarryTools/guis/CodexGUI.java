@@ -30,16 +30,41 @@ public class CodexGUI {
         int endCol = 8;
 
         List<ItemDetails> items = List.of(
-                new ItemDetails(Material.PURPLE_WOOL, "Prestige", textUtils.colorize(List.of(
-                        "<dark_purple>Command: /prestige",
-                        "<light_purple>Prestiging gives you skill tokens,",
-                        "<light_purple>as well as unlocks better mines when you get enough."
+                new ItemDetails(Material.ORANGE_WOOL, "<#fb6b1d><bold>Prestige", textUtils.colorize(List.of(
+                        "<#fb6b1d>Prestiging " + "<grey>gives you " + "<#a884f3>skill tokens",
+                        "<grey>as well as unlocks better " + "<yellow>mines " + "<grey>when you get enough.",
+                        "",
+                        "<grey>Command: /prestige"
                 ))),
-                new ItemDetails(Material.GOLD_BLOCK, "Rebirth", textUtils.colorize(List.of(
-                        "<yellow>Command: /rebirth",
-                        "<#dcc100>Rebirthing gives you a Rebirth Lootbox,",
-                        "<#dcc100>better lucky blocks,",
-                        "<#dcc100>as well as access to a Rebirth mine and /rebirthshop."
+                new ItemDetails(Material.PINK_WOOL, "<#ed8099><bold>Rebirth", textUtils.colorize(List.of(
+                        "<#ed8099>Rebirthing " + "<grey>gives you a " + "<#ed8099>Rebirth" + " Lootbox",
+                        "<#grey>as well as access to better " + "<yellow>mines " + "<grey>and /rebirthshop.",
+                        "",
+                        "<#grey>Command: /rebirth"
+                ))),
+                new ItemDetails(Material.ENDER_DRAGON_SPAWN_EGG, "<dark_purple><bold>Bosses", textUtils.colorize(List.of(
+                        "<grey>Once you have 4 of a certain type of " + "<dark_purple>boss " + "block",
+                        "<grey>you will be able to fight a " + "<dark_purple>boss.",
+                        "",
+                        "<grey>Command: /bosses"
+                ))),
+                new ItemDetails(Material.DIAMOND, "Skills", textUtils.colorize(List.of(
+                        "<dark_blue>Using /skills brings up your pickaxe skills.",
+                        "<dark_blue>You can see how much each skill costs by hovering over it.",
+                        "",
+                        "<aqua>Command: /skills"
+                ))),
+                new ItemDetails(Material.MOOSHROOM_SPAWN_EGG, "Eggs & Pets", textUtils.colorize(List.of(
+                        "<#a00f10>Commands: /eggs & /pets",
+                        "<#b7b7b7>Once you use an egg, you can run /eggs to see all your eggs",
+                        "<#b7b7b7>choose an egg and mine the required amount of blocks for your egg",
+                        "<#b7b7b7>once you claim your pet use /pets to equip your new pet.",
+                        "<#b7b7b7>pets give you fortune and sell boosts that scale with pet level."
+                ))),
+                new ItemDetails(Material.PINK_WOOL, "Preferences", textUtils.colorize(List.of(
+                        "<#FFC1CC>Command: /preferences",
+                        "<#A94064>This command brings up your preferences.",
+                        "<#A94064>many togglable setting are located here."
                 ))),
                 new ItemDetails(Material.IRON_INGOT, "Auto Sell", textUtils.colorize(List.of(
                         "<white>Command: /autosell",
@@ -56,43 +81,10 @@ public class CodexGUI {
                         "<gray>via heading to the upgrades tab in the gui",
                         "<gray>the autominer is also activated/deactivated via the gui."
                 ))),
-                new ItemDetails(Material.ENDER_DRAGON_SPAWN_EGG, "Bosses", textUtils.colorize(List.of(
-                        "<#292828>Command: /bosses",
-                        "<dark_purple>Once you have 4 of a certain type of boss block,",
-                        "<dark_purple>you can use /bosses to fight a boss."
-                ))),
-                new ItemDetails(Material.DIAMOND, "Skills", textUtils.colorize(List.of(
-                        "<aqua>Command: /skills",
-                        "<dark_blue>Using /skills brings up your pickaxe skills.",
-                        "<dark_blue>You can see how much each skill costs by hovering over it."
-                ))),
-                new ItemDetails(Material.MOOSHROOM_SPAWN_EGG, "Eggs & Pets", textUtils.colorize(List.of(
-                        "<#a00f10>Commands: /eggs & /pets",
-                        "<#b7b7b7>Once you use an egg, you can run /eggs to see all your eggs",
-                        "<#b7b7b7>choose an egg and mine the required amount of blocks for your egg",
-                        "<#b7b7b7>once you claim your pet use /pets to equip your new pet.",
-                        "<#b7b7b7>pets give you fortune and sell boosts that scale with pet level."
-                ))),
                 new ItemDetails(Material.EXPERIENCE_BOTTLE, "Reclaim", textUtils.colorize(List.of(
                         "<dark_green>Command: /reclaim",
                         "<yellow>This command allows you to claim rank based rewards",
                         "<yellow>so every season you can claim rewards for your rank via /reclaim."
-                ))),
-                new ItemDetails(Material.PINK_WOOL, "Preferences", textUtils.colorize(List.of(
-                        "<#FFC1CC>Command: /preferences",
-                        "<#A94064>This command brings up your preferences.",
-                        "<#A94064>many togglable setting are located here."
-                ))),
-                new ItemDetails(Material.END_GATEWAY, "Moons", textUtils.colorize(List.of(
-                        "<#02006C>/moons",
-                        "<dark_purple>This command brings brings up the moons GUI.",
-                        "<dark_purple>the gui showcases the current moons aswell as their chances."
-
-                ))),
-                new ItemDetails(Material.CHEST, "Crates", textUtils.colorize(List.of(
-                        "<#684b0a>No Command",
-                        "<#af882f>After getting keys from mining, voting, etc",
-                        "<#af882f>take your keys over to the crates and open them for rewards."
                 ))),
                 new ItemDetails(Material.FIRE_CHARGE, "Leaderboard", textUtils.colorize(List.of(
                         "<#740a04>No Command",
