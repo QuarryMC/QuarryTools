@@ -80,20 +80,20 @@ public class CodexGUI {
 
                 ))),
                 new ItemDetails(Material.PAPER, textUtils.colorize("<white><bold>Useful Commands"), textUtils.colorize(List.of(
-                        "<gray><bold>/mines        | Shows all unlockable mines",
-                        "<gray><bold>/autosell     | automatically sells your backpack when its full (rank locked cmd)",
+                        "<gray><bold>/mines | Shows all unlockable mines",
+                        "<gray><bold>/autosell | automatically sells your backpack when its full (rank locked cmd)",
                         "<gray><bold>/autoprestige | automatically prestiges (need required currencies & level)",
-                        "<gray><bold>/pay          | is used to pay other players currencies.",
-                        "<gray><bold>/preferences  | many QOL settings are located here."
+                        "<gray><bold>/pay | is used to pay other players currencies.",
+                        "<gray><bold>/preferences | many QOL settings are located here."
                 ))),
                 new ItemDetails(Material.REDSTONE_BLOCK, textUtils.colorize("<red><bold>Hearts"), textUtils.colorize(List.of(
-                        "On Quarry, "+"<red>Hearts "+"<grey>are a currency that can be used to purchase",
-                        "a select variety of "+"<aqua>skills "+"<grey>and other items.",
-                        "Hearts can be obtained via "+"<aqua>skills "+"<grey>and redstone blocks",
+                        "<gray>On Quarry, "+"<red>Hearts "+"<grey>are a currency that can be used to purchase",
+                        "<gray>a select variety of "+"<aqua>skills "+"<grey>and other items.",
+                        "<red>Hearts"+"<gray> can be obtained via "+"<aqua>skills "+"<grey>and redstone blocks",
                         "",
                         "<gray><bold>NO COMMAND"
                 ))),
-                new ItemDetails(Material.FIRE_CHARGE, textUtils.colorize("<<#fb7604><bold>Leaderboard"), textUtils.colorize(List.of(
+                new ItemDetails(Material.FIRE_CHARGE, textUtils.colorize("<#fb7604><bold>Leaderboard"), textUtils.colorize(List.of(
                         "<grey>Top 5 players with the most "+"<yellow>mined"+"<grey> blocks get comets",
                         "<grey>comets can be used in the quarry shop to buy many things.",
                         "",
