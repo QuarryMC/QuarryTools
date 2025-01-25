@@ -89,7 +89,7 @@ public class CodexGUI {
                         "<yellow>This command allows you to claim rank based rewards",
                         "<yellow>so every season you can claim rewards for your rank via /reclaim."
                 ))),
-                new ItemDetails(Material.END_GATEWAY, textUtils.colorize("Moons"), textUtils.colorize(List.of(
+                new ItemDetails(Material.WHITE_WOOL, textUtils.colorize("Moons"), textUtils.colorize(List.of(
                         "<#02006C>/moons",
                         "<dark_purple>This command brings brings up the moons GUI.",
                         "<dark_purple>the gui showcases the current moons aswell as their chances."
