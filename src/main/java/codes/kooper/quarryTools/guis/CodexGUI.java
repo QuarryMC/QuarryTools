@@ -31,79 +31,72 @@ public class CodexGUI {
 
         List<ItemDetails> items = List.of(
                 new ItemDetails(Material.ORANGE_WOOL, textUtils.colorize("<#fb6b1d><bold>Prestige"), textUtils.colorize(List.of(
-                        "<#fb6b1d>Prestiging " + "<grey>gives you " + "<#a884f3>skill tokens",
-                        "<grey>as well as unlocks better " + "<yellow>mines " + "<grey>when you get enough.",
+                        "<#fb6b1d>Prestiging "+"<gray>gives you "+"<#a884f3>skill tokens",
+                        "<gray>as well as unlocks better "+"<yellow>mines "+"<gray>when you get enough.",
                         "",
-                        "<grey><bold>Command: /prestige"
+                        "<gray><bold>Command: /prestige"
                 ))),
                 new ItemDetails(Material.PINK_WOOL, textUtils.colorize("<#ed8099><bold>Rebirth"), textUtils.colorize(List.of(
-                        "<#ed8099>Rebirthing " + "<grey>gives you a " + "<#ed8099>Rebirth" + " Lootbox",
-                        "<grey>as well as access to better " + "<yellow>mines " + "<grey>and /rebirthshop.",
+                        "<#ed8099>Rebirthing "+"<gray>gives you a "+"<#ed8099>Rebirth"+" Lootbox",
+                        "<gray>as well as access to better "+"<yellow>mines "+"<gray>and /rebirthshop.",
                         "",
-                        "<grey><bold>Command: /rebirth"
+                        "<gray><bold>Command: /rebirth"
                 ))),
                 new ItemDetails(Material.ENDER_DRAGON_SPAWN_EGG, textUtils.colorize("<dark_purple><bold>Bosses"), textUtils.colorize(List.of(
-                        "<grey>Once you have 4 of a certain type of " + "<dark_purple>boss " + "block",
-                        "<grey>you will be able to fight a " + "<dark_purple>boss.",
+                        "<gray>Once you have 4 of a certain type of "+"<dark_purple>boss "+"block",
+                        "<gray>you will be able to fight a "+"<dark_purple>boss at your "+"<yellow>mine.",
                         "",
-                        "<grey><bold>Command: /bosses"
+                        "<gray><bold>Command: /bosses"
                 ))),
                 new ItemDetails(Material.DIAMOND, textUtils.colorize("<aqua><bold>Skills"), textUtils.colorize(List.of(
-                        "<aqua>Skills " + "<grey>can be purchased to keep you progressing in the game.",
-                        "<grey>You can see how much each " + "<aqua>Skill " + "<grey>costs by hovering over it.",
+                        "<aqua>Skills "+"<gray>can be purchased to keep you progressing in the game.",
+                        "<gray>You can see how much each "+"<aqua>Skill "+"<green>costs"+"<gray> by hovering over it.",
                         "",
-                        "<grey><bold>Command: /skills"
+                        "<gray><bold>Command: /skills"
                 ))),
-                new ItemDetails(Material.MOOSHROOM_SPAWN_EGG, textUtils.colorize("<#a00f10><bold>Eggs & Pets"), textUtils.colorize(List.of(
-                        "<grey>Once you use an "+"<#a00f10>egg"+"<grey>, you can choose an "+"<#a00f10>egg "+"<grey>and",
-                        "<grey>mine the required amount of blocks for your "+"<#a00f10>egg "+"<grey>for it to hatch.",
+                new ItemDetails(Material.CREEPER_SPAWN_EGG, textUtils.colorize("<#609e60><bold>Eggs & Pets"), textUtils.colorize(List.of(
+                        "<gray>Once you use an "+"<#609e60>egg"+"<gray>, you can choose an "+"<#609e60>egg "+"<gray>and",
+                        "<gray>mine the required amount of blocks for your "+"<#609e60>egg "+"<gray>for it to hatch.",
 
-                        "<grey>once you claim your "+"<#a00f10>pet"+"<grey> use "+"<#a00f10>/pets"+"<grey> to equip your new "+"<#a00f10>pet"+"<grey>.",
-                        "<#a00f10>pets"+"<grey> give you fortune and sell boosts that scale with "+"<#a00f10>pet"+"<grey> level.",
+                        "<gray>once you claim your "+"<#609e60>pet"+"<gray> use "+"<#609e60>/pets"+"<gray> to equip your new "+"<#609e60>pet"+"<gray>.",
+                        "<#609e60>pets"+"<gray> will help you at your "+"<yellow>mine"+"<gray> via fortune etc.",
                         "",
-                        "<#a00f10>Commands: /eggs & /pets"
+                        "<#609e60>Commands: /eggs & /pets"
 
                 ))),
-                new ItemDetails(Material.PINK_WOOL, textUtils.colorize("Preferences"), textUtils.colorize(List.of(
-                        "<#FFC1CC>Command: /preferences",
-                        "<#A94064>This command brings up your preferences.",
-                        "<#A94064>many togglable setting are located here."
+                new ItemDetails(Material.GRAY_WOOL, textUtils.colorize("<dark_gray><bold>Preferences"), textUtils.colorize(List.of(
+                        "<gray>This command brings up your "+"<dark_gray>preferences.",
+                        "<gray>many QOL togglable settings are located here.",
+                        "",
+                        "<gray><bold>Command: /preferences"
                 ))),
-                new ItemDetails(Material.IRON_INGOT, textUtils.colorize("Auto Sell"), textUtils.colorize(List.of(
-                        "<white>Command: /autosell",
-                        "<grey>People With COMET rank or above can use /autosell",
-                        "<grey>solar rank or below, you cannot."
+                new ItemDetails(Material.GOLD_BLOCK, textUtils.colorize("<#ffbf00><bold>Auto Miner"), textUtils.colorize(List.of(
+                        "<gray>Players can purchase "+"<#ffbf00>autominer"+"<gray> time and speed",
+                        "<gray>via the upgrades tab in the autominergui",
+                        "<gray>and can then AFK "+"<#ffbf00>automine"+"<gray> for "+"<#fb6b1d>prestiges.",
+                        "",
+                        "<dark_gray>Command: /autominer"
                 ))),
-                new ItemDetails(Material.EMERALD, textUtils.colorize("Auto Prestige"), textUtils.colorize(List.of(
-                        "<dark_green>Command: /autoprestige",
-                        "<green>There is no rank requirement to use /autoprestige."
-                ))),
-                new ItemDetails(Material.COBBLESTONE, textUtils.colorize("Auto Miner"), textUtils.colorize(List.of(
-                        "<dark_gray>Command: /autominer",
-                        "<gray>Players can purchase autominer time and speed",
-                        "<gray>via heading to the upgrades tab in the gui",
-                        "<gray>the autominer is also activated/deactivated via the gui."
-                ))),
-                new ItemDetails(Material.EXPERIENCE_BOTTLE, textUtils.colorize("Reclaim"), textUtils.colorize(List.of(
-                        "<dark_green>Command: /reclaim",
-                        "<yellow>This command allows you to claim rank based rewards",
-                        "<yellow>so every season you can claim rewards for your rank via /reclaim."
-                ))),
-                new ItemDetails(Material.WHITE_WOOL, textUtils.colorize("Moons"), textUtils.colorize(List.of(
-                        "<#02006C>/moons",
-                        "<dark_purple>This command brings brings up the moons GUI.",
-                        "<dark_purple>the gui showcases the current moons aswell as their chances."
+                new ItemDetails(Material.WHITE_WOOL, textUtils.colorize("<white><bold>Moons"), textUtils.colorize(List.of(
+                        "<gray>On quarry once 1M blocks are "+"<yellow>mined"+"<gray> globally the current",
+                        "<white>moon"+"<gray> will be randomized causing the "+"<yellow>mine"+"<gray> to switch and the",
+                        "rewards from "+"<yellow>mining"+"<gray> quarry blocks to change.",
+                        "",
+                        "<gray><bold>Command: /moons"
 
                 ))),
-                new ItemDetails(Material.FIRE_CHARGE, textUtils.colorize("Leaderboard"), textUtils.colorize(List.of(
-                        "<#740a04>No Command",
-                        "<#fb7604>Top 5 players with the most mined blocks get comets",
-                        "<#fb7604>comets can be used in the quarry shop to buy many things."
+                new ItemDetails(Material.REDSTONE_BLOCK, textUtils.colorize("<red><bold>Hearts"), textUtils.colorize(List.of(
+                        "On Quarry, "+"<red>Hearts "+"<grey>are a currency that can be used to purchase",
+                        "a select variety of "+"<aqua>skills "+"<grey>and other items.",
+                        "Hearts can be obtained via "+"<aqua>skills "+"<grey>and redstone blocks",
+                        "",
+                        "<gray><bold>NO COMMAND"
                 ))),
-
-                new ItemDetails(Material.IRON_BARS, textUtils.colorize("Cells"), textUtils.colorize(List.of(
-                        "<white>Command: /cells",
-                        "<#292828>(NOT OUT YET)"
+                new ItemDetails(Material.FIRE_CHARGE, textUtils.colorize("<<#fb7604><bold>Leaderboard"), textUtils.colorize(List.of(
+                        "<grey>Top 5 players with the most "+"<yellow>mined"+"<grey> blocks get comets",
+                        "<grey>comets can be used in the quarry shop to buy many things.",
+                        "",
+                        "<gray><bold>NO COMMAND"
                 )))
         );
 
