@@ -24,8 +24,8 @@ public class HeartSkill implements Listener {
         Skill skill = QuarrySkills.getInstance().getSkillManager().getSkills().get("health_finder");
         if (ThreadLocalRandom.current().nextDouble() > SkillManager.getChance(user, skill)) return;
         int hearts = ThreadLocalRandom.current().nextInt(1, 11);
-        if (user.getHealth() + hearts > 100) {
-            hearts = (int) (100 - user.getHealth());
+        if (user.getHealth() + hearts > event.getUser().getHealthCap()) {
+            hearts = (int) (event.getUser().getHealthCap() - user.getHealth());
             if (hearts <= 0) return;
         }
         user.addHealth(hearts);

@@ -68,6 +68,7 @@ public final class QuarryTools extends JavaPlugin {
         getServer().getPluginManager().registerEvents(autoMineListener, this);
         getServer().getPluginManager().registerEvents(new NukeCheckListener(), this);
         getServer().getPluginManager().registerEvents(new MineRewardListener(), this);
+        getServer().getPluginManager().registerEvents(new MoonBuffListener(), this);
 
         // Skills
         getServer().getPluginManager().registerEvents(new AutoRebirthSkill(), this);

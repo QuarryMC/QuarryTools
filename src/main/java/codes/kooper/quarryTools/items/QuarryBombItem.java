@@ -66,7 +66,7 @@ public class QuarryBombItem {
         Vector direction = player.getEyeLocation().getDirection().normalize().multiply(10);
         Location spawnLoc = player.getLocation();
         Location toLocation = spawnLoc.clone().add(direction);
-        Position highestPos = player.getChromaBlockManager().getHighestPosAtXAndZ(toLocation.getBlockX(), toLocation.getBlockZ());
+        Position highestPos = player.getChromaBlockManager(player.getWorld()).getHighestPosAtXAndZ(toLocation.getBlockX(), toLocation.getBlockZ());
         if (highestPos == null) return false;
         Location mineLocation = highestPos.toLocation(player.getWorld());
         wrapper.spawn(SpigotConversionUtil.fromBukkitLocation(spawnLoc));

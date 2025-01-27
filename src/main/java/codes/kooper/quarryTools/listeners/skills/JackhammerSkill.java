@@ -34,7 +34,7 @@ public class JackhammerSkill implements Listener {
         Skill skill = QuarrySkills.getInstance().getSkillManager().getSkills().get("jackhammer");
         if (ThreadLocalRandom.current().nextDouble() > SkillManager.getChance(user, skill)) return;
 
-        View view = player.getChromaBlockManager().getView(player.getName(), "mine");
+        View view = player.getChromaBlockManager(player.getWorld()).getView(player.getName(), "mine");
         if (view == null) return;
 
         Location loc1 = new Location(player.getWorld(), view.getBound().getMaxX(), event.getLocation().getBlockY(), view.getBound().getMaxZ());
@@ -48,7 +48,7 @@ public class JackhammerSkill implements Listener {
 
         positions = positions.stream()
                 .filter(position -> {
-                    BlockData blockData = player.getChromaBlockManager().getBlockData(position);
+                    BlockData blockData = player.getChromaBlockManager(player.getWorld()).getBlockData(position);
                     if (blockData == null) return false;
 
                     Material material = blockData.getMaterial();
@@ -58,8 +58,9 @@ public class JackhammerSkill implements Listener {
                     if (event.getQuarry().getSpawnedBoss() != null && material == event.getQuarry().getSpawnedBoss().getBoss().bossBlock())
                         return false;
                     return material != Material.AIR &&
+                            material != Material.BEDROCK &&
                             material != Material.NETHERRACK &&
-                            material != Material.ANCIENT_DEBRIS &&
+                            material != Material.PRISMARINE &&
                             material != Material.REDSTONE_BLOCK;
                 })
                 .collect(Collectors.toSet());
@@ -67,9 +68,9 @@ public class JackhammerSkill implements Listener {
         if (positions.isEmpty()) return;
 
         for (Position position : positions) {
-            player.getChromaBlockManager().setBlock(position, Material.AIR.createBlockData());
+            player.getChromaBlockManager(player.getWorld()).setBlock(position, Material.AIR.createBlockData());
             if (user.hasOption("particles")) continue;
-            BlockData blockData = player.getChromaBlockManager().getBlockData(position);
+            BlockData blockData = player.getChromaBlockManager(player.getWorld()).getBlockData(position);
             player.spawnParticle(Particle.BLOCK, position.toLocation(player.getWorld()), 1, 0.3, 0.3, 0.3, blockData);
         }
 
@@ -80,7 +81,7 @@ public class JackhammerSkill implements Listener {
         event.addBlocks(positions.size() / 10);
         event.addResetBlocks(count);
 
-        player.getChromaBlockManager().refreshBlocks(positions);
+        player.getChromaBlockManager(player.getWorld()).refreshBlocks(positions);
         if (!user.hasDisabledSkillNotification("jackhammer")) {
             player.playSound(player.getLocation(), Sound.BLOCK_PISTON_EXTEND, 1, 1);
         }

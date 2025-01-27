@@ -36,12 +36,13 @@ public class BackpackListener implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onBreak(QuarryMineEvent event) {
         Player player = event.getPlayer();
-        if (event.getUser().getBackpackItems() + event.getBlocks().get() >= event.getUser().getBackpackCapacity()) {
-            event.getUser().setBackpackItems(event.getUser().getBackpackCapacity());
+        if (event.getUser().getBackpackItems() + event.getBlocks().get() >= event.getUser().getBackpackCapacity2()) {
             if (event.getUser().isAutoSell()) {
                 BackpackUtils.sell(event.getUser());
                 return;
             }
+            event.getUser().setBackpackItems(event.getUser().getBackpackCapacity2());
+            if (event.getUser().hasOption("backpack_full_notification")) return;
             player.sendTitlePart(TitlePart.TITLE, textUtils.colorize("<#ea4f36><bold>BACKPACK FULL"));
             player.sendTitlePart(TitlePart.SUBTITLE, textUtils.colorize("<#9babb2><italic>(( USE /SELL ))"));
             player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_DIDGERIDOO, 5, 0.5f);

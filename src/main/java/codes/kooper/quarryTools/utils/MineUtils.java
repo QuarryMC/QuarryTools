@@ -33,7 +33,7 @@ public class MineUtils {
         if (optionalUser.isEmpty()) return;
         User user = optionalUser.get();
         Set<Position> positions = getAllPositionsInRadius(center, radius).stream()
-                .filter(pos -> player.getChromaBlockManager().getBlockData(pos) != null && player.getChromaBlockManager().getBlockData(pos).getMaterial().name().contains("GLAZED"))
+                .filter(pos -> player.getChromaBlockManager(player.getWorld()).getBlockData(pos) != null && player.getChromaBlockManager(player.getWorld()).getBlockData(pos).getMaterial().name().contains("GLAZED"))
                 .collect(Collectors.toSet());
         if (positions.isEmpty()) return;
         player.playSound(player.getLocation(), Sound.ENTITY_TNT_PRIMED, 5, 1.5f);
@@ -73,15 +73,15 @@ public class MineUtils {
                     for (Position pos : positions) {
                         WrapperEntity blockDisplay = new WrapperEntity(EntityTypes.BLOCK_DISPLAY);
                         BlockDisplayMeta blockDisplayMeta1 = (BlockDisplayMeta) blockDisplay.getEntityMeta();
-                        BlockData blockData = player.getChromaBlockManager().getBlockData(pos);
+                        BlockData blockData = player.getChromaBlockManager(player.getWorld()).getBlockData(pos);
                         if (blockData == null) continue;
                         blockDisplayMeta1.setBlockId(SpigotConversionUtil.fromBukkitBlockData(blockData).getGlobalId());
                         blockDisplay.addViewerSilently(player.getUniqueId());
                         blockDisplay.spawn(SpigotConversionUtil.fromBukkitLocation(pos.toLocation(player.getWorld())));
                         entityMap.put(pos, blockDisplay);
                     }
-                    player.getChromaBlockManager().setBlocks(positions, Material.AIR.createBlockData());
-                    player.getChromaBlockManager().refreshBlocks(positions);
+                    player.getChromaBlockManager(player.getWorld()).setBlocks(positions, Material.AIR.createBlockData());
+                    player.getChromaBlockManager(player.getWorld()).refreshBlocks(positions);
                 } else {
                     // Process positions
                     final Iterator<Position> iterator = positions.iterator();

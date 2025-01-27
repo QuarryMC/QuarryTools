@@ -72,7 +72,7 @@ public class CodexGUI {
                         "<dark_gray>Command: /autominer"
                 ))),
                 new ItemDetails(Material.WHITE_WOOL, textUtils.colorize("<white><bold>Moons"), textUtils.colorize(List.of(
-                        "<gray>On quarry once 1M blocks are "+"<yellow>mined"+"<gray> globally the current",
+                        "<gray>On quarry once 250,000 blocks are "+"<yellow>mined"+"<gray> globally the current",
                         "<white>moon"+"<gray> will be randomized causing the "+"<yellow>mine"+"<gray> to switch and the",
                         "rewards from "+"<yellow>mining"+"<gray> quarry blocks to change.",
                         "",

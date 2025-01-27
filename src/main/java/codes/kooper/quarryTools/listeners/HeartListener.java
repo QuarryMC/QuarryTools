@@ -33,8 +33,8 @@ public class HeartListener implements Listener {
         MOONS moon = QuarryMoons.getInstance().getMoonManager().getCurrentMoon();
         double hearts = ThreadLocalRandom.current().nextInt(1, 6);
         Player player = event.getPlayer();
-        if (event.getUser().getHealth() + hearts > 100) {
-            hearts = 100 - event.getUser().getHealth();
+        if (event.getUser().getHealth() + hearts > event.getUser().getHealthCap()) {
+            hearts = event.getUser().getHealthCap() - event.getUser().getHealth();
             if (hearts <= 0) return;
         }
         player.sendMessage(
@@ -51,7 +51,7 @@ public class HeartListener implements Listener {
     public void onBreakOfRedstone(QuarryMineEvent event) {
         if (event.getBlockData().getMaterial() != Material.REDSTONE_BLOCK) return;
         Player player = event.getPlayer();
-        if (event.getUser().getHealth() + 1 > 100) {
+        if (event.getUser().getHealth() + 1 > event.getUser().getHealthCap()) {
             return;
         }
         event.getUser().addHealth(1);

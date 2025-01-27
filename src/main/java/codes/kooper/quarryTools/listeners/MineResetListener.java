@@ -33,6 +33,8 @@ import org.bukkit.potion.PotionEffectType;
 
 import java.util.Optional;
 
+import static codes.kooper.koopKore.KoopKore.textUtils;
+
 public class MineResetListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST)
@@ -58,9 +60,9 @@ public class MineResetListener implements Listener {
         if (player == null) return;
         Optional<User> user = KoopKore.getInstance().getUserAPI().getUser(player.getUniqueId());
         if (user.isEmpty()) return;
-        int bestSize = QuarryMoons.getInstance().getMineManager().getMineSize(event.getUser().getRebirth(), event.getUser().getPrestige());
-        int size = bestSize - quarry.get().getSize();
-        if (size <= 0) return;
+        if (QuarryMoons.getInstance().getMineManager().getMineIndex(event.getUser().getRebirth(), event.getUser().getPrestige()) == quarry.get().getMine()) return;
+        int size = QuarryMoons.getInstance().getMineManager().getMineIndex(event.getUser().getRebirth(), event.getUser().getPrestige()) - quarry.get().getMine();
+        if (size <= 0 || size >= 12) return;
         player.playSound(player.getLocation(), Sound.UI_TOAST_CHALLENGE_COMPLETE, 5, 1.5f);
         MOONS moon = QuarryMoons.getInstance().getMoonManager().getCurrentMoon();
         ItemStack icon = moon == MOONS.CURSED ? new ItemStack(Material.WITHER_ROSE) : new ItemStack(moon.getConcrete().getFirst());
@@ -68,6 +70,7 @@ public class MineResetListener implements Listener {
         JSONMessage description = new JSONMessage(new TextComponent("View /mines"));
         AdvancementDisplay advancementDisplay = new AdvancementDisplay(icon, title, description, AdvancementDisplay.AdvancementFrame.GOAL, AdvancementVisibility.ALWAYS);
         advancementDisplay.setX(1);
+        quarry.get().setMine(quarry.get().getMine() + size);
         advancementDisplay.setY(10f);
         Advancement rootAdvancement = new Advancement(new NameKey("quarrytools", "newmine"), advancementDisplay);
         ChromaManager.increaseSize(player, user.get(), quarry.get(), size);

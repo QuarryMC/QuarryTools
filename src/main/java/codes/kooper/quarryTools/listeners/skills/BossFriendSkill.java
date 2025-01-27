@@ -45,7 +45,7 @@ public class BossFriendSkill implements Listener {
         player.getInventory().addItem(bossBlock);
         if (user.hasDisabledSkillNotification("boss_friend")) return;
         player.playSound(player.getLocation(), Sound.ITEM_GOAT_HORN_SOUND_4, 5, 1.5f);
-        player.sendMessage(textUtils.colorize(skill.color1() + "<bold>BOSS FRIEND<reset><dark_gray>: " + skill.color2() + "You received a ").append(bossBlock.displayName()) + skill.color2() + ".");
+        player.sendMessage(textUtils.colorize(skill.color1() + "<bold>BOSS FRIEND<reset><dark_gray>: " + skill.color2() + "You received a ").append(bossBlock.displayName()).append(textUtils.colorize(skill.color2() + " from the boss!")));
     }
 
 }

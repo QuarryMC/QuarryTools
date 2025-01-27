@@ -46,7 +46,7 @@ public class MineResetManager {
                 if (player == null) return;
 
                 Tasks.runSync(() -> {
-                    if (Objects.requireNonNull(Objects.requireNonNull(player.getChromaBlockManager().getView(player.getName(), "mine")).getBound()).contains(Position.block(player.getLocation()))) {
+                    if (Objects.requireNonNull(Objects.requireNonNull(player.getChromaBlockManager(player.getWorld()).getView(player.getName(), "mine")).getBound()).contains(Position.block(player.getLocation()))) {
                         Location location = player.getLocation();
                         location.setY(62.5);
                         player.teleport(location);
@@ -64,7 +64,7 @@ public class MineResetManager {
     }
 
     private int getMineBlockCount(Quarry quarry) {
-        int size = 5 + 2 * quarry.getSize(); // Total length and width
+        int size = 15 + 2 * quarry.getSize(); // Total length and width
         int height = 74; // Fixed height
         int totalBlocks = size * size * height; // Volume of the mine
         return (int) (totalBlocks * 0.8); // Calculate the reset threshold

@@ -24,6 +24,7 @@ public class PickaxeListener implements Listener {
     @EventHandler
     public void inventoryClick(InventoryClickEvent event) {
         event.setCancelled(PickaxeItems.isPickaxe(event.getCurrentItem()));
+        event.setCancelled(PickaxeItems.isPickaxe(event.getCursor()));
     }
 
     @EventHandler

@@ -61,7 +61,15 @@ public class BossListener implements Listener {
         int health = ThreadLocalRandom.current().nextInt(10, 31);
         Skill skill = QuarrySkills.getInstance().getSkillManager().getSkills().get("sworder");
         if (user.hasSkill("sworder") && !user.hasDisabledSkill("sworder") && ThreadLocalRandom.current().nextDouble() <= SkillManager.getChance(user, skill)) {
-            health *= 2;
+            if (ThreadLocalRandom.current().nextDouble() <= 0.7) {
+                health *= 2;
+            } else if (ThreadLocalRandom.current().nextDouble() <= 0.7) {
+                health *= 3;
+            } else if (ThreadLocalRandom.current().nextDouble() <= 0.8) {
+                health *= 4;
+            } else {
+                health *= 5;
+            }
             if (user.hasDisabledSkillNotification("sworder")) return;
             player.sendMessage(textUtils.colorize(skill.color1() + "<bold>SWORDER<reset><dark_gray>:" + skill.color2() + "You hit the boss for 2x damage!"));
             player.playSound(player.getLocation(), Sound.ENTITY_IRON_GOLEM_DAMAGE, 5, 1.5f);

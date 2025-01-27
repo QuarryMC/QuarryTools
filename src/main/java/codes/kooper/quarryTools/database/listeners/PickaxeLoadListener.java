@@ -4,6 +4,7 @@ import codes.kooper.koopKore.utils.Tasks;
 import codes.kooper.quarryTools.QuarryTools;
 import codes.kooper.quarryTools.database.models.Pickaxe;
 import codes.kooper.quarryTools.database.models.PickaxeStorage;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -38,7 +39,7 @@ public class PickaxeLoadListener implements Listener {
 
             Tasks.runSync(() -> {
                 ItemStack item = player.getInventory().getItem(0);
-                if (item == null || item.isEmpty()) {
+                if (item == null || item.isEmpty() || item.getType() != Material.NETHERITE_PICKAXE) {
                     player.getInventory().setItem(0, pickaxeStorage.getSelected().toItem(player).clone());
                 }
             });
@@ -48,6 +49,14 @@ public class PickaxeLoadListener implements Listener {
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
         UUID uuid = event.getPlayer().getUniqueId();
+
+        if (event.getPlayer().getInventory().getItem(0) == null || event.getPlayer().getInventory().getItem(0).isEmpty()) {
+            return;
+        }
+
+        if (QuarryTools.getInstance().getPickaxeItems().getPickaxe(event.getPlayer().getInventory().getItem(0)) == null) {
+            return;
+        }
 
         QuarryTools.getInstance().getPickStorageCache().get(uuid).ifPresent(storage -> {
             storage.updateSelected(event.getPlayer().getInventory().getItem(0));

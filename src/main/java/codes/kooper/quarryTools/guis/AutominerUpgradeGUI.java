@@ -55,7 +55,7 @@ public class AutominerUpgradeGUI {
         });
         gui.setItem(0, clockItem);
 
-        long speedCost = (long) (75000000 * (multi / 2));
+        long speedCost = (long) (75000000 * (multi / 2)) * (long) Math.pow(1.1, user.getAutoMinerSpeed());
         GuiItem speedItem = ItemBuilder.from(Material.RABBIT_FOOT)
                 .name(textUtils.colorize("<gold><bold>Speed Upgrade"))
                 .lore(textUtils.colorize(List.of(

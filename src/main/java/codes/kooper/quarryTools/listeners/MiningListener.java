@@ -66,6 +66,8 @@ public class MiningListener implements Listener {
         user.addDailyMined(1);
         QuarryTools.getInstance().getMineResetManager().mineBlocks(quarry, 1);
 
+        event.setDropItems(false);
+
         QuarryTools.getInstance().getMiningThreads().submit(() -> {
             try {
                 new QuarryMineEvent(

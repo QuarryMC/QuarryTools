@@ -88,7 +88,7 @@ public class PickaxeItems {
         ItemStack item = new ItemBuilder(itemStack)
                 .setName(rarity.getToolName(pickaxe, name))
                 .setLore(pickaxe.getLore(fortune, rarity))
-                .addEnchant(Enchantment.EFFICIENCY, 500, true)
+                .addEnchant(Enchantment.EFFICIENCY, 1500, true)
                 .setUnbreakable(true)
                 .build();
         NBT.modify(item, nbt -> {
